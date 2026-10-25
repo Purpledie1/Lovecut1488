@@ -1,3 +1,11 @@
+import sys
+
+# Гарантируем UTF-8 вывод в любой Windows-консоли (cp1251 / cp866)
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 import asyncio
 import uvicorn
 from contextlib import asynccontextmanager
@@ -81,7 +89,9 @@ async def lifespan(app_instance):
 app.router.lifespan_context = lifespan
 
 def main():
-    print("\n👉 Открой браузер: http://127.0.0.1:8000")
+    print("\n" + "=" * 50)
+    print(">>> OTKROY BRAUZER: http://127.0.0.1:8000")
+    print("=" * 50 + "\n")
     uvicorn.run(
         app,
         host="127.0.0.1",

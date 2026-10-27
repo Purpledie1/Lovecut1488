@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOVECUT | DARK STREET BARBER</title>
+    <title>LOVECUT | BARBER</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
@@ -13,19 +13,46 @@
     <header class="hero">
         <h1 class="glitch" data-text="LOVECUT">LOVECUT</h1>
         <p class="typewriter">СТРИЖКИ ОТ АНДРЕЯ</p>
-        <button class="cta-button pulse">ЗАПИСАТЬСЯ</button>
+        <button class="cta-button pulse" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">ЗАПИСАТЬСЯ</button>
     </header>
 
     <main>
         <section id="about" class="fade-in">
-            <!-- Секция О мастере -->
+            <div class="dossier">
+                <p>> МАСТЕР: АНДРЕЙ</p>
+                <p>> СПЕЦИАЛИЗАЦИЯ: МУЖСКИЕ СТРИЖКИ</p>
+                <p>> СТИЛЬ: УЛИЧНЫЙ / КЛАССИКА</p>
+            </div>
         </section>
-        
-        <section id="portfolio" class="fade-in">
-            <!-- Секция Портфолио -->
+
+        <!-- Booking Flow -->
+        <section id="booking" class="booking-flow">
+            <div class="progress-bar"><div id="progress"></div></div>
+            <div class="step step-1">
+                <h3>ПРАВИЛА</h3>
+                <label><input type="checkbox" id="rules-check"> Записываюсь только на :00</label><br>
+                <label><input type="checkbox"> Оплата — только наличные</label><br>
+                <button onclick="goToStep(2)">ДАЛЕЕ</button>
+            </div>
+            <div class="step step-2" style="display:none;">
+                <h3>ЗАПИСЬ (DIKIDI)</h3>
+                <a href="https://dikidi.net/1985442" target="_blank" class="cta-button">ВЫБРАТЬ ВРЕМЯ</a>
+                <button onclick="goToStep(3)">Я ЗАПИСАЛСЯ</button>
+            </div>
+            <div class="step step-3" style="display:none;">
+                <h3>ОПЛАТА БРОНИ (200₽)</h3>
+                <p>Реквизиты: Т-Банк, Андрей С.</p>
+                <button onclick="goToStep(4)">ОПЛАТИЛ, ДАЛЕЕ</button>
+            </div>
+            <div class="step step-4" style="display:none;">
+                <h3>ЗАГРУЗКА ЧЕКА</h3>
+                <input type="file" id="receipt-upload">
+                <button id="submit-btn" onclick="alert('Чек отправлен!')">ОТПРАВИТЬ ЧЕК</button>
+            </div>
         </section>
     </main>
 
     <script src="js/main.js" type="module"></script>
+    <script src="js/booking.js" type="module"></script>
 </body>
 </html>

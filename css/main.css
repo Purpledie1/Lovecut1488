@@ -1,0 +1,23 @@
+:root {
+    --bg-black: #0A0A0A;
+    --bg-charcoal: #1A1A1A;
+    --accent-red: #DC2626;
+    --text-main: #F5F5F5;
+    --text-muted: #8A8A8A;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

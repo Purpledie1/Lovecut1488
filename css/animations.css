@@ -1,4 +1,25 @@
-.glitch { position: relative; font-size: 8rem; animation: glitch 2s infinite; }
-@keyframes glitch { 0% { text-shadow: 2px 0 red, -2px 0 blue; } 50% { text-shadow: -2px 0 red, 2px 0 blue; } }
+/* Grain */
+.grain-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none; z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+/* Glitch */
+.glitch { position: relative; font-size: 8rem; font-weight: 900; animation: glitch 2s infinite; }
+@keyframes glitch { 0% { text-shadow: 2px 0 red, -2px 0 blue; transform: skew(0deg); } 50% { text-shadow: -2px 0 red, 2px 0 blue; transform: skew(1deg); } 100% { text-shadow: 2px 0 red, -2px 0 blue; transform: skew(0deg); } }
+
+/* Typewriter */
+.typewriter {
+    font-family: 'JetBrains Mono', monospace;
+    overflow: hidden; border-right: .15em solid var(--accent-red);
+    white-space: nowrap; margin: 0 auto;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+}
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-red) } }
+
+/* Pulse CTA */
 .pulse { animation: pulse-red 2s infinite; }
 @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); } 100% { box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); } }

@@ -200,8 +200,8 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     }
 
     float idxOf(vec2 c) {
-      // Robust non-negative hash across all 49 photos
-      float h = c.x * 7.0 + c.y * 19.0 + floor(c.y / 2.0) * 5.0;
+      // Optimal 2D distribution across 49 photos (no adjacent duplicates)
+      float h = c.x + c.y * 6.0;
       return mod(mod(h, uN) + uN, uN);
     }
 
@@ -308,7 +308,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     const fx = w.x - c.x * CELL.x;
     const fy = w.y - c.y * CELL.y;
     const onImg = fx >= PAD && fx <= PAD + IW && fy >= PAD && fy <= PAD + IH;
-    const h = c.x * 7 + c.y * 19 + Math.floor(c.y / 2) * 5;
+    const h = c.x + c.y * 6;
     const idx = Math.floor(((h % N) + N) % N);
     return { c, onImg, idx };
   };

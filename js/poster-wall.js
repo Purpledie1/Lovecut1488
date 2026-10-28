@@ -1,113 +1,19 @@
 import * as THREE from './vendor/three.module.js';
 import { sound } from './sound-fx.js';
 
-export const SPECIMENS = [
-  {
-    id: 'LC-01',
-    name: 'TEXTURED CROP // RAW FADE',
-    style: 'Textured Crop',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Wahl Cordless Senior / Feather Japan',
-    desc: 'Рваная уличная текстура сверху и плотный переход с нуля. Идеально под оверсайз и гранж.',
-    src: 'assets/cuts/cut_01.jpg'
-  },
-  {
-    id: 'LC-02',
-    name: 'Y2K GRUNGE MULLET // RAW',
-    style: 'Grunge Mullet',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Andis T-Outliner / Текстурные ножницы',
-    desc: 'Удлиненный затылок, дерзкий силуэт и рваные виски в стиле 2000-х и андеграундной сцены.',
-    src: 'assets/cuts/cut_02.jpg'
-  },
-  {
-    id: 'LC-03',
-    name: 'LOW SKIN TAPER // STREET CUT',
-    style: 'Low Taper Fade',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Wahl Magic Clip / Опасная бритва',
-    desc: 'Мягкий дымчатый переход на висках и шее с сохранением естественной массы сверху.',
-    src: 'assets/cuts/cut_03.jpg'
-  },
-  {
-    id: 'LC-04',
-    name: 'DARK SHAG // MESSY TEXTURE',
-    style: 'Street Shag',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Прямые лезвия / Матовая глина',
-    desc: 'Хаотичная форма с острыми прядями. Держит объем без склеивания и лаков.',
-    src: 'assets/cuts/cut_04.jpg'
-  },
-  {
-    id: 'LC-05',
-    name: 'OPIUM BUZZ // CLEAN EDGES',
-    style: 'Buzzcut & Razor Lineup',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Wahl Balding / Feather Razor',
-    desc: 'Сверхкороткий ультра-минимализм с хирургически выведенными контурами лба и висков.',
-    src: 'assets/cuts/cut_05.jpg'
-  },
-  {
-    id: 'LC-06',
-    name: 'MOHAWK BLADE // HARDCORE',
-    style: 'Hardcore Mohawk Fade',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Andis GTX-Z / Машинки Wahl',
-    desc: 'Агрессивная полоса по центру с экстремальным фейдом по бокам. Для тех, кто слушает метал.',
-    src: 'assets/cuts/cut_06.jpg'
-  },
-  {
-    id: 'LC-07',
-    name: 'TEXTILE FRINGE // UNDERGROUND',
-    style: 'Heavy Fringe',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Филировочные бритвы / Солевой спрей',
-    desc: 'Плотная матовая челка с глубокой текстуризацией. Без заглаживания, только живая форма.',
-    src: 'assets/cuts/cut_07.jpg'
-  },
-  {
-    id: 'LC-08',
-    name: 'CYBER TEMPLE FADE // RAZOR',
-    style: 'Temple Fade',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Опасная бритва / Wahl Detailer',
-    desc: 'Контрастные виски под ноль с чистой каймой и переходом в аккуратную бороду или щетину.',
-    src: 'assets/cuts/cut_08.jpg'
-  },
-  {
-    id: 'LC-09',
-    name: 'MODERN TEXTURED CROP // GRAIN',
-    style: 'Modern Sharp Crop',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Wahl Senior / Matte Clay',
-    desc: 'Четкая геометрия линии челки и объемный рельефный топ. Держит форму весь день.',
-    src: 'assets/cuts/cut_09.jpg'
-  },
-  {
-    id: 'LC-10',
-    name: 'SIGNATURE LOVECUT // HEAVY METAL',
-    style: 'Signature Underground Cut',
-    time: '60 МИН / ТОЛЬКО :00',
-    price: 'ПО ПРАЙСУ В DIKIDI',
-    tools: 'Весь арсенал Андрея',
-    desc: 'Индивидуальный штучный дроп под форму черепа и стиль одежды. Чистая уличная органика.',
-    src: 'assets/cuts/cut_10.jpg'
-  }
-];
+export const CUT_PHOTOS = Array.from({ length: 31 }, (_, i) => {
+  const num = String(i + 1).padStart(2, '0');
+  return {
+    index: i,
+    id: num,
+    src: `assets/cuts/cut_${num}.jpg`
+  };
+});
 
-export function initPosterWall(stageEl, onSelectSpecimen) {
+export function initPosterWall(stageEl, onSelectPhoto) {
   if (!stageEl) return null;
 
-  const N = SPECIMENS.length;
+  const N = CUT_PHOTOS.length;
   const isMobile = () => window.innerWidth < 768;
   const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -119,7 +25,7 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.setClearColor(0x08080a, 1);
+  renderer.setClearColor(0x070709, 1);
   renderer.domElement.className = 'pv-canvas';
   renderer.domElement.style.width = '100%';
   renderer.domElement.style.height = '100%';
@@ -134,18 +40,18 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
   // Cell layout in world units
   const PAD = 0.08;
   const IW = 1 - PAD * 2;
-  const IH = IW * 1.33; // 4:3 aspect ratio matching haircut photography
+  const IH = IW * 1.33; // 4:3 aspect ratio
   const GAPC = 0.04;
-  const CAPR = 85 / 1024;
+  const CAPR = 70 / 1024;
   const CAPH = IW * CAPR;
   const CELL = new THREE.Vector2(1, PAD + IH + GAPC + CAPH + PAD * 0.85);
 
-  const baseScale = () => (isMobile() ? 2.4 : 1.9);
+  const baseScale = () => (isMobile() ? 2.3 : 1.85);
 
-  // Load images
+  // Load all 31 images asynchronously
   const loadedImages = [];
   const loadAll = Promise.all(
-    SPECIMENS.map((s, i) => {
+    CUT_PHOTOS.map((item, i) => {
       return new Promise(res => {
         const img = new Image();
         img.decoding = 'async';
@@ -154,36 +60,35 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
           res(img);
         };
         img.onerror = () => {
-          console.warn('Could not load cut image', s.src);
-          // generate fallback placeholder canvas
+          console.warn('Failed to load image', item.src);
           const c = document.createElement('canvas');
-          c.width = 600; c.height = 800;
+          c.width = 480; c.height = 640;
           const ctx = c.getContext('2d');
-          ctx.fillStyle = '#18181b'; ctx.fillRect(0, 0, 600, 800);
-          ctx.fillStyle = '#ff1e27'; ctx.font = 'bold 36px monospace';
-          ctx.textAlign = 'center'; ctx.fillText(s.name, 300, 400);
+          ctx.fillStyle = '#141418'; ctx.fillRect(0, 0, 480, 640);
+          ctx.fillStyle = '#ffffff'; ctx.font = '700 24px monospace';
+          ctx.textAlign = 'center'; ctx.fillText(`LOVECUT #${item.id}`, 240, 320);
           loadedImages[i] = c;
           res(c);
         };
-        img.src = s.src;
+        img.src = item.src;
       });
     })
   );
 
   // Create Atlas Canvas Texture
   const G = 8;
-  const TH = 640;
+  const TH = 580;
   const TW = Math.round(TH / 1.33);
   const PW = TW + G * 2;
   const PH = TH + G * 2;
-  const ACOLS = 5;
+  const ACOLS = 6;
   const AROWS = Math.ceil(N / ACOLS);
 
   const atlasCanvas = document.createElement('canvas');
   atlasCanvas.width = ACOLS * PW;
   atlasCanvas.height = AROWS * PH;
   const atlasCtx = atlasCanvas.getContext('2d');
-  atlasCtx.fillStyle = '#08080a';
+  atlasCtx.fillStyle = '#070709';
   atlasCtx.fillRect(0, 0, atlasCanvas.width, atlasCanvas.height);
 
   const atlasTex = new THREE.CanvasTexture(atlasCanvas);
@@ -221,8 +126,8 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
 
   // Create Captions Canvas Texture
   const CG = 6;
-  const CHp = 44;
-  const CWp = 480;
+  const CHp = 38;
+  const CWp = 420;
   const capCanvas = document.createElement('canvas');
   capCanvas.width = CWp + CG * 2;
   capCanvas.height = (CHp + CG * 2) * N;
@@ -231,26 +136,20 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
   const drawCaptions = () => {
     capCtx.clearRect(0, 0, capCanvas.width, capCanvas.height);
     capCtx.textBaseline = 'middle';
-    const fs = 15;
-    capCtx.font = `700 ${fs}px 'JetBrains Mono', 'Consolas', monospace`;
+    const fs = 14;
+    capCtx.font = `600 ${fs}px 'JetBrains Mono', monospace`;
 
     for (let i = 0; i < N; i++) {
-      const s = SPECIMENS[i];
       const y = i * (CHp + CG * 2) + CG + CHp / 2;
 
-      // Clean editorial line: pure white mono
-      capCtx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-      capCtx.fillRect(CG, y - CHp / 2 + 4, CWp, CHp - 8);
-
-      // Specimen Number
+      // Pure Swiss style label
       capCtx.fillStyle = '#ffffff';
       capCtx.textAlign = 'left';
-      capCtx.fillText(`NO. ${String(i + 1).padStart(2, '0')} // ${s.style.toUpperCase()}`, CG + 10, y);
+      capCtx.fillText(`NO. ${String(i + 1).padStart(2, '0')} // ARCHIVE`, CG + 4, y);
 
-      // Master Tag
-      capCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      capCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
       capCtx.textAlign = 'right';
-      capCtx.fillText('OPEN ↗', CG + CWp - 10, y);
+      capCtx.fillText('ZOOM ↗', CG + CWp - 4, y);
     }
   };
   drawCaptions();
@@ -265,7 +164,7 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
     uRes: { value: new THREE.Vector2(1, 1) },
     uOff: { value: new THREE.Vector2(0.5, 0.2) },
     uScale: { value: baseScale() },
-    uK: { value: 0.16 }, // Barrel / lens distortion strength
+    uK: { value: 0.16 },
     uAtlas: { value: atlasTex },
     uAtlMeta: { value: new THREE.Vector4(PW, PH, G, ACOLS) },
     uTile: { value: new THREE.Vector2(TW, TH) },
@@ -301,8 +200,8 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
     }
 
     float idxOf(vec2 c) {
-      // Procedural dispersion so same haircuts don't clump together
-      return mod(mod(c.x * 7.0 + c.y * 17.0 + floor(c.y / 2.0) * 3.0, 50.0), uN);
+      // Seamless modulo hash across all 31 photos
+      return mod(mod(c.x * 7.0 + c.y * 19.0 + floor(c.y / 2.0) * 5.0, 97.0), uN);
     }
 
     void main() {
@@ -322,7 +221,7 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
       vec2 wdy = dFdy(w);
       vec2 dw = vec2(length(vec2(wdx.x, wdy.x)), length(vec2(wdx.y, wdy.y)));
 
-      vec3 col = vec3(0.04, 0.04, 0.05); // Background obsidian
+      vec3 col = vec3(0.035, 0.035, 0.04);
       float hov = step(abs(cell.x - uHover.x) + abs(cell.y - uHover.y), 0.5) * uHoverAmt;
 
       // Poster Box
@@ -338,13 +237,13 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
 
         vec3 texCol = texture2D(uAtlas, px / uAtlasSize).rgb;
 
-        // Precision hairline border on hover
+        // Sterling silver hairline border
         float borderDist = min(iu.x, min(1.0 - iu.x, min(iu.y, 1.0 - iu.y)));
         if (borderDist < 0.012) {
           texCol = mix(texCol, vec3(0.9, 0.9, 0.92), 0.35 + hov * 0.65);
         }
 
-        // Refined gallery hover exposure boost
+        // Subtle gallery hover exposure
         texCol += vec3(0.08, 0.08, 0.08) * hov;
 
         col = mix(col, texCol, cov);
@@ -362,8 +261,8 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
         col = mix(col, capCol.rgb, ccov * capCol.a);
       }
 
-      // Subtle edge vignette
-      float vig = clamp(1.0 - dot(p * 0.35, p * 0.35), 0.0, 1.0);
+      // Edge Vignette
+      float vig = clamp(1.0 - dot(p * 0.32, p * 0.32), 0.0, 1.0);
       col *= vig;
 
       gl_FragColor = vec4(col, 1.0);
@@ -387,7 +286,7 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
   let scaleTarget = baseScale();
   const off = uniforms.uOff.value;
   const offTarget = off.clone();
-  const vel = new THREE.Vector2(0.0003, 0.0002); // gentle auto drift
+  const vel = new THREE.Vector2(0.0003, 0.0002);
   let drag = null;
   let hoverAmtTarget = 0;
 
@@ -408,7 +307,8 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
     const fx = w.x - c.x * CELL.x;
     const fy = w.y - c.y * CELL.y;
     const onImg = fx >= PAD && fx <= PAD + IW && fy >= PAD && fy <= PAD + IH;
-    const idx = (((c.x * 7 + c.y * 17 + Math.floor(c.y / 2) * 3) % 50 + 50) % 50) % N;
+    const rawIdx = (((c.x * 7 + c.y * 19 + Math.floor(c.y / 2) * 5) % 97 + 97) % 97) % N;
+    const idx = Math.floor(rawIdx);
     return { c, onImg, idx };
   };
 
@@ -461,12 +361,12 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
     const dist = Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY);
     const duration = performance.now() - drag.t;
 
-    // Tap detected!
+    // Clean Tap detected -> Open pure photo zoom!
     if (dist < 8 && duration < 600) {
       const h = cellAt(e.clientX, e.clientY);
-      if (h.onImg && onSelectSpecimen) {
+      if (h.onImg && onSelectPhoto) {
         sound.playSub();
-        onSelectSpecimen(h.idx);
+        onSelectPhoto(h.idx, CUT_PHOTOS[h.idx]);
       }
     }
 
@@ -511,21 +411,18 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
     const dt = Math.min(32, now - lastTime) / 16;
     lastTime = now;
 
-    // Inertia physics
     if (!drag) {
       offTarget.x += vel.x * dt;
       offTarget.y += vel.y * dt;
       vel.x *= Math.pow(0.93, dt);
       vel.y *= Math.pow(0.93, dt);
 
-      // Subtle atmospheric drift if velocity gets very low
       if (Math.hypot(vel.x, vel.y) < 0.0001) {
         vel.x = Math.sin(now * 0.0004) * 0.0002;
         vel.y = Math.cos(now * 0.0005) * 0.0002;
       }
     }
 
-    // Smooth spring interpolation
     off.x += (offTarget.x - off.x) * 0.15 * dt;
     off.y += (offTarget.y - off.y) * 0.15 * dt;
     scale += (scaleTarget - scale) * 0.12 * dt;

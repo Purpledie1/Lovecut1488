@@ -351,60 +351,15 @@
     </section>
   </main>
 
-  <!-- Specimen Lightbox Dialog -->
-  <dialog id="specimen-dialog" class="specimen-modal" aria-labelledby="dlg-specimen-name">
-    <button class="modal-close-corner" id="dlg-close-btn" aria-label="Закрыть">✕</button>
-
-    <div class="modal-content-grid">
-      <div class="modal-image-col">
-        <img id="dlg-specimen-img" src="" alt="Стрижка">
-        <div class="modal-image-overlay" id="dlg-specimen-id">SPECIMEN #LC-01</div>
-      </div>
-
-      <div class="modal-details-col">
-        <div>
-          <div class="modal-header-tag">
-            <span>АРХИВ ЛИЧНЫХ РАБОТ</span>
-            <span style="color: var(--text-dim);">LOVECUT // ANDREY</span>
-          </div>
-          <h2 class="modal-title" id="dlg-specimen-name">TEXTURED CROP</h2>
-          <p class="modal-desc" id="dlg-specimen-desc">Рваная уличная текстура с плотным переходом.</p>
-
-          <div class="modal-spec-row">
-            <span class="modal-spec-label">СИЛУЭТ / СТИЛЬ:</span>
-            <span class="modal-spec-value" id="dlg-specimen-style">Crop Fade</span>
-          </div>
-
-          <div class="modal-spec-row">
-            <span class="modal-spec-label">ТАЙМИНГ:</span>
-            <span class="modal-spec-value" id="dlg-specimen-time">60 МИН / СТРОГО :00</span>
-          </div>
-
-          <div class="modal-spec-row">
-            <span class="modal-spec-label">ИНСТРУМЕНТ:</span>
-            <span class="modal-spec-value" id="dlg-specimen-tools">Wahl Senior / Feather</span>
-          </div>
-
-          <div class="modal-spec-row">
-            <span class="modal-spec-label">ЗАЛОГ ДЛЯ БРОНИ:</span>
-            <span class="modal-spec-value" style="color: var(--crimson);">200 ₽ (Т-БАНК)</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="modal-actions">
-            <button id="dlg-choose-btn" class="btn-primary" style="width: 100%; justify-content: center;">
-              <span>ХОЧУ ЭТУ СТРИЖКУ → К ЗАПИСИ</span>
-              <span>✂️</span>
-            </button>
-          </div>
-
-          <div class="modal-nav-bar">
-            <button id="dlg-prev-btn" class="modal-nav-btn">← ПРЕДЫДУЩАЯ</button>
-            <span>СТРЕЛКИ ИЛИ КЛИК ДЛЯ НАВИГАЦИИ</span>
-            <button id="dlg-next-btn" class="modal-nav-btn">СЛЕДУЮЩАЯ →</button>
-          </div>
-        </div>
+  <!-- Pure Photo Zoom Dialog (Direct, Clean, No Fake Copy) -->
+  <dialog id="photo-dialog" class="photo-zoom-dialog" aria-label="Просмотр фотографии">
+    <button class="photo-close-btn" id="photo-close-btn" aria-label="Закрыть">✕</button>
+    <div class="photo-zoom-frame">
+      <img id="photo-zoom-img" src="" alt="Фотография работы Андрея">
+      <div class="photo-zoom-controls">
+        <button id="photo-prev-btn" class="photo-nav-pill">← ПРЕДЫДУЩЕЕ</button>
+        <span class="photo-counter-tag"><strong id="photo-counter-num">01</strong> / 31</span>
+        <button id="photo-next-btn" class="photo-nav-pill">СЛЕДУЮЩЕЕ →</button>
       </div>
     </div>
   </dialog>

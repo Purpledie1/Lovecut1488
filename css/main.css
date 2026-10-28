@@ -758,6 +758,111 @@ dialog.specimen-modal::backdrop {
   margin-bottom: 32px;
 }
 
+/* Native Slot & Calendar Picker */
+.calendar-days-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--crimson) rgba(255, 255, 255, 0.05);
+}
+
+.calendar-day-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.calendar-day-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.calendar-day-btn.active {
+  background: rgba(255, 30, 39, 0.12);
+  border-color: var(--crimson);
+  color: #fff;
+  box-shadow: 0 0 12px var(--crimson-glow);
+}
+
+.day-btn-dow {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.calendar-day-btn.active .day-btn-dow {
+  color: var(--crimson);
+  font-weight: 700;
+}
+
+.day-btn-date {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.time-slot-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-hairline);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.time-slot-btn:hover {
+  border-color: var(--crimson);
+  background: rgba(255, 30, 39, 0.06);
+}
+
+.time-slot-btn.selected {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  color: #fff;
+  box-shadow: 0 0 18px var(--crimson-glow);
+  transform: translateY(-2px);
+}
+
+.time-slot-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: transparent;
+}
+
+.slot-selection-summary {
+  background: rgba(255, 30, 39, 0.08);
+  border: 1px solid var(--border-active);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .req-row {
   display: flex;
   justify-content: space-between;

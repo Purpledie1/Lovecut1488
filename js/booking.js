@@ -5,17 +5,23 @@ export function initBookingFlow() {
   const stepPanels = document.querySelectorAll('.step-panel');
   const progressBar = document.getElementById('flow-progress');
 
-  // Rule checkboxes
+  // Step 1: Rule checkboxes
   const checkTime = document.getElementById('rule-time');
   const checkDeposit = document.getElementById('rule-deposit');
   const checkCash = document.getElementById('rule-cash');
   const step1Btn = document.getElementById('btn-step-1');
 
-  // Requisite copy buttons
+  // Step 2: Native Slot & Calendar elements
+  const daysContainer = document.getElementById('calendar-days-container');
+  const slotsContainer = document.getElementById('time-slots-container');
+  const slotDisplay = document.getElementById('selected-slot-display');
+  const step2Btn = document.getElementById('btn-step-2');
+
+  // Step 3: Requisite copy buttons
   const copyPhoneBtn = document.getElementById('copy-phone-btn');
   const copyLinkBtn = document.getElementById('copy-link-btn');
 
-  // Receipt handling
+  // Step 4: Receipt handling & Telegram
   const receiptInput = document.getElementById('receipt-input');
   const receiptDropzone = document.getElementById('receipt-dropzone');
   const receiptPreview = document.getElementById('receipt-preview');
@@ -23,6 +29,7 @@ export function initBookingFlow() {
 
   let currentStep = 1;
   let selectedSpecimen = null;
+  let selectedDate = null;
   let selectedTimeSlot = '';
 
   // Expose specimen selector to window so modal can trigger it
@@ -33,7 +40,6 @@ export function initBookingFlow() {
       badge.innerHTML = `ВЫБРАН СТИЛЬ: <span class="text-crimson font-bold">[${specimen.id}] ${specimen.name}</span>`;
       badge.style.display = 'inline-block';
     }
-    // Scroll smoothly to booking
     const bookingSec = document.getElementById('booking-section');
     if (bookingSec) {
       bookingSec.scrollIntoView({ behavior: 'smooth' });
@@ -65,7 +71,7 @@ export function initBookingFlow() {
     }
   }
 
-  // Validate step 1 checkboxes
+  // --- Step 1 Validation ---
   function validateRules() {
     const valid = checkTime?.checked && checkDeposit?.checked && checkCash?.checked;
     if (step1Btn) {
@@ -81,6 +87,97 @@ export function initBookingFlow() {
       });
     }
   });
+
+  // --- Step 2 Native Calendar & Slots Engine ---
+  const RUSSIAN_MONTHS = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+  const RUSSIAN_DOW = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  const AVAILABLE_HOURS = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
+
+  function initCalendarAndSlots() {
+    if (!daysContainer || !slotsContainer) return;
+
+    const today = new Date();
+    const daysList = [];
+
+    for (let i = 0; i < 10; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+
+      const dayNum = d.getDate();
+      const monthStr = RUSSIAN_MONTHS[d.getMonth()];
+      const dowStr = RUSSIAN_DOW[d.getDay()];
+      const fullLabel = i === 0 ? `Сегодня, ${dayNum} ${monthStr}` : i === 1 ? `Завтра, ${dayNum} ${monthStr}` : `${dayNum} ${monthStr} (${dowStr})`;
+
+      daysList.push({
+        dateObj: d,
+        dayNum,
+        monthStr,
+        dowStr: i === 0 ? 'СЕГОДНЯ' : i === 1 ? 'ЗАВТРА' : dowStr,
+        fullLabel,
+        iso: d.toISOString().slice(0, 10)
+      });
+    }
+
+    selectedDate = daysList[0];
+
+    // Render Days
+    daysContainer.innerHTML = '';
+    daysList.forEach((day, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `calendar-day-btn ${idx === 0 ? 'active' : ''}`;
+      btn.innerHTML = `
+        <div class="day-btn-dow">${day.dowStr}</div>
+        <div class="day-btn-date">${day.dayNum} ${day.monthStr}</div>
+      `;
+      btn.addEventListener('click', () => {
+        sound.playClick();
+        document.querySelectorAll('.calendar-day-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedDate = day;
+        updateSlotSummary();
+      });
+      daysContainer.appendChild(btn);
+    });
+
+    // Render Slots (strictly :00)
+    slotsContainer.innerHTML = '';
+    AVAILABLE_HOURS.forEach(slot => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'time-slot-btn';
+      btn.innerText = slot;
+      btn.addEventListener('click', () => {
+        sound.playClick();
+        document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedTimeSlot = slot;
+        updateSlotSummary();
+      });
+      slotsContainer.appendChild(btn);
+    });
+
+    updateSlotSummary();
+  }
+
+  function updateSlotSummary() {
+    if (!slotDisplay) return;
+
+    if (selectedDate && selectedTimeSlot) {
+      slotDisplay.innerHTML = `
+        <span class="text-crimson font-bold">${selectedDate.fullLabel.toUpperCase()}</span> в <span class="text-crimson font-bold">${selectedTimeSlot}</span>
+        <span style="font-size:0.8rem; color:#a1a1aa; font-weight:normal;">(строго :00)</span>
+      `;
+      if (step2Btn) step2Btn.disabled = false;
+    } else {
+      slotDisplay.innerHTML = `
+        <span style="color:#a1a1aa;">${selectedDate ? selectedDate.fullLabel : ''} — выберите время :00 выше</span>
+      `;
+      if (step2Btn) step2Btn.disabled = true;
+    }
+  }
+
+  initCalendarAndSlots();
 
   // Navigation handlers
   document.querySelectorAll('[data-goto-step]').forEach(btn => {
@@ -170,11 +267,15 @@ export function initBookingFlow() {
   if (tgSendBtn) {
     tgSendBtn.addEventListener('click', () => {
       sound.playSnip();
-      const styleText = selectedSpecimen ? `Стиль: ${selectedSpecimen.name}` : 'Стрижка';
+      const styleText = selectedSpecimen ? `• Стиль: [${selectedSpecimen.id}] ${selectedSpecimen.name}` : '• Стрижка: индивидуальный выбор';
+      const slotText = selectedDate && selectedTimeSlot ? `• Дата и время: ${selectedDate.fullLabel}, в ${selectedTimeSlot} (строго :00)` : '• Время: начало часа :00';
+
       const msg = encodeURIComponent(
-        `Привет, Андрей! Записался через сайт lovecut.\n` +
-        `• ${styleText}\n` +
-        `• Залог 200₽ на Т-Банк перевел.\n` +
+        `Привет, Андрей! Записываюсь через сайт LOVECUT.\n` +
+        `${slotText}\n` +
+        `${styleText}\n` +
+        `• Залог 200 ₽ на Т-Банк перевел.\n` +
+        `• Остаток подготовлю наличными 🩸.\n\n` +
         `Прикрепляю скриншот чека:`
       );
       window.open(`https://t.me/LOVECUT2006?text=${msg}`, '_blank');

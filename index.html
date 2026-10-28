@@ -126,7 +126,7 @@
           
           <div class="step-indicator-item" data-step="2">
             <div class="step-circle">2</div>
-            <span class="step-label">Dikidi</span>
+            <span class="step-label">Слот :00</span>
           </div>
           
           <div class="step-indicator-item" data-step="3">
@@ -179,27 +179,47 @@
           </button>
         </div>
 
-        <!-- Step 2: Dikidi Selection -->
+        <!-- Step 2: Native Date & Time Slot Selector -->
         <div class="step-panel" data-step="2">
-          <h3 class="panel-title">ШАГ 2: ВЫБОР ВРЕМЕНИ В DIKIDI</h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <h3 class="panel-title" style="margin-bottom: 0;">ШАГ 2: ВЫБОР ДАТЫ И СЛОТА</h3>
+            <span style="font-size: 0.75rem; color: var(--crimson); border: 1px solid var(--border-active); padding: 3px 8px; background: rgba(255,30,39,0.08);">
+              ПРЯМАЯ БРОНЬ БЕЗ СТОРОННИХ CRM
+            </span>
+          </div>
           <p class="panel-desc">
-            Перейдите в официальную форму Dikidi и выберите удобный день и время (помните: строго на ровный час :00).
+            Выберите дату и свободное время. Напоминаем: запись строго на ровный час (<strong>:00</strong>).
           </p>
 
-          <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-hairline); padding: 24px; text-align: center; margin-bottom: 28px;">
-            <p style="color: var(--text-muted); margin-bottom: 16px;">
-              Ссылка на профиль мастера: <strong style="color: #fff;">dikidi.net/1985442</strong>
-            </p>
-            <a href="https://dikidi.net/1985442" target="_blank" class="btn-secondary" style="margin-bottom: 12px; display: inline-flex;">
-              <span>ОТКРЫТЬ DIKIDI ДЛЯ ЗАПИСИ ↗</span>
-            </a>
-            <p class="text-xs text-dim" style="margin-top: 8px;">Совет: сделайте скриншот записи в Dikidi, чтобы не забыть время</p>
+          <!-- Dynamic Calendar Days Scroll -->
+          <div style="margin-bottom: 16px;">
+            <div class="text-xs text-dim" style="margin-bottom: 8px;">1. ВЫБЕРИТЕ ДАТУ:</div>
+            <div class="calendar-days-scroll" id="calendar-days-container"></div>
+          </div>
+
+          <!-- Time Slots Grid -->
+          <div style="margin-bottom: 24px;">
+            <div class="text-xs text-dim" style="margin-bottom: 8px;">2. СВОБОДНЫЕ СЛОТЫ (ТОЛЬКО НАЧАЛО ЧАСА /00):</div>
+            <div class="time-slots-grid" id="time-slots-container"></div>
+          </div>
+
+          <!-- Selected Summary Box -->
+          <div class="slot-selection-summary" id="slot-summary-box">
+            <div>
+              <div class="text-xs text-dim">ВЫБРАННЫЙ СЛОТ ДЛЯ ЗАПИСИ:</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: #fff;" id="selected-slot-display">
+                — Выберите время выше —
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--crimson); text-align: right;">
+              ⏳ Бронь фиксируется залогом 200 ₽
+            </div>
           </div>
 
           <div style="display: flex; gap: 12px;">
-            <button class="btn-secondary" data-goto-step="1">← НАЗАД</button>
-            <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="3">
-              <span>Я ВЫБРАЛ ВРЕМЯ :00 — ДАЛЕЕ К ЗАЛОГУ</span>
+            <button class="btn-secondary" data-goto-step="1">← НАЗАД К ПРАВИЛАМ</button>
+            <button class="btn-primary" id="btn-step-2" style="flex: 1; justify-content: center;" data-goto-step="3" disabled>
+              <span>ВРЕМЯ ВЫБРАНО — ПЕРЕЙТИ К ЗАЛОГУ 200 ₽</span>
               <span>→</span>
             </button>
           </div>
@@ -359,7 +379,7 @@
         <div class="footer-col">
           <h5>БРОНИРОВАНИЕ</h5>
           <ul>
-            <li><a href="https://dikidi.net/1985442" target="_blank">Dikidi Запись</a></li>
+            <li><a href="#booking-section">Онлайн-бронь слота :00</a></li>
             <li><a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank">Т-Банк 200 ₽ Бронь</a></li>
             <li><a href="#booking-section">Правила визита</a></li>
           </ul>

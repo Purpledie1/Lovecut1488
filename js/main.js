@@ -1,4 +1,4 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=3';
 import { initBookingFlow } from './booking.js';
 import { sound } from './sound-fx.js';
 

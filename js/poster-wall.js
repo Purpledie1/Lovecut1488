@@ -6,7 +6,7 @@ export const CUT_PHOTOS = Array.from({ length: 49 }, (_, i) => {
   return {
     index: i,
     id: num,
-    src: `assets/cuts/cut_${num}.jpg`
+    src: `assets/cuts/cut_${num}.jpg?v=3`
   };
 });
 

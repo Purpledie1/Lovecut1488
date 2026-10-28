@@ -1,7 +1,7 @@
 @echo off
-title LOVECUT 2006 - WebGL Atelier
+title LOVECUT - WebGL Atelier
 echo =======================================================
-echo     LOVECUT 2006 // ANDREY S. // RAW STREET CUTS
+echo     LOVECUT - ANDREY S. - RAW STREET CUTS
 echo =======================================================
 echo.
 echo Запуск локального сервера...

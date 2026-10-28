@@ -275,11 +275,13 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
+  touch-action: none;
 }
 
 .pv-stage .pv-canvas {
   width: 100% !important;
   height: 100% !important;
+  touch-action: none;
 }
 
 .pv-controls {

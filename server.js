@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\n=======================================================`);
-  console.log(`  LOVECUT 2006 // ANDREY S. // RAW STREET BARBER`);
+  console.log(`  LOVECUT • ANDREY S. • RAW STREET BARBER`);
   console.log(`  Сайт успешно запущен: http://localhost:${PORT}`);
   console.log(`=======================================================\n`);
 });

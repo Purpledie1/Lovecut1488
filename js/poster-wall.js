@@ -48,7 +48,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   const baseScale = () => (isMobile() ? 2.3 : 1.85);
 
-  // Load all 31 images asynchronously
+  // Load all 49 images asynchronously
   const loadedImages = [];
   const loadAll = Promise.all(
     CUT_PHOTOS.map((item, i) => {

@@ -1,9 +1,27 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=4';
-import { initBookingFlow } from './booking.js';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=5';
+import { initBookingFlow } from './booking.js?v=5';
 import { sound } from './sound-fx.js';
+import { MagneticCursor } from './cursor.js?v=5';
+import { initMagneticButtons, init3DCardTilt, initLiveIrkutskClock } from './motion.js?v=5';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Sound Toggle in Header
+  // 1. Initialize High-End Custom Magnetic Cursor & Spotlight
+  try {
+    new MagneticCursor();
+  } catch (err) {
+    console.warn('Custom cursor initialization:', err);
+  }
+
+  // 2. Initialize Kinetic Button Physics & Inner Parallax
+  initMagneticButtons();
+
+  // 3. Initialize 3D Card Tilt with Specular Glare Tracking
+  init3DCardTilt();
+
+  // 4. Initialize Live Irkutsk Digital Telemetry Clock
+  initLiveIrkutskClock();
+
+  // 5. Sound Toggle in Header
   const soundBtn = document.getElementById('sound-toggle-btn');
   const soundStatus = document.getElementById('sound-status-text');
 
@@ -24,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Pure Photo Zoom Dialog
+  // 6. Pure Photo Zoom Dialog
   const photoDialog = document.getElementById('photo-dialog');
   const photoImg = document.getElementById('photo-zoom-img');
   const photoCounter = document.getElementById('photo-counter-num');
@@ -105,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initialize 3D Wall
+  // 7. Initialize 3D Wall
   const stage = document.getElementById('pv-stage');
   let wallInstance = null;
   if (stage) {
@@ -122,11 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resetBtn && wallInstance) resetBtn.addEventListener('click', wallInstance.resetPos);
   }
 
-  // Initialize Booking Flow
+  // 8. Initialize Booking Flow
   initBookingFlow();
 
-  // Hover sounds
-  document.querySelectorAll('button, a, .calendar-day-btn, .time-slot-btn').forEach(el => {
+  // 9. Tactile hover sounds for interactive elements
+  document.querySelectorAll('button, a, .calendar-day-btn, .time-slot-btn, .tilt-card').forEach(el => {
     el.addEventListener('mouseenter', () => sound.playClick());
   });
 });

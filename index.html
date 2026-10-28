@@ -7,10 +7,20 @@
   <meta name="color-scheme" content="dark">
   <title>LOVECUT — АНДРЕЙ С. — RAW STREET CUTS</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/animations.css?v=5">
 </head>
 <body>
+  <!-- Dual Magnetic Cursor Element -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    <div class="cursor-label"></div>
+  </div>
+
+  <!-- Ambient Cursor Spotlight -->
+  <div id="ambient-spotlight" class="ambient-spotlight" aria-hidden="true"></div>
+
   <!-- Grain Overlay -->
   <div class="grain-overlay" aria-hidden="true"></div>
 
@@ -21,32 +31,48 @@
       <span>САЙТ РАБОТАЕТ</span>
       <span style="opacity: 0.4;">•</span>
       <span>GEO: ИРКУТСК, ЛИТВИНОВА 18</span>
+      <span style="opacity: 0.4;">•</span>
+      <span style="color: var(--crimson); font-weight: 800;">IRK [<span id="irkutsk-live-clock">18:00:00</span>]</span>
     </div>
     <div class="top-bar-right">
-      <a href="https://t.me/lovecut2006blya" target="_blank" style="color: inherit; text-decoration: none;">TG: @lovecut2006blya</a>
-      <button id="sound-toggle-btn" class="sound-btn" title="Включить тактильный саунд-дизайн">
+      <a href="https://t.me/lovecut2006blya" target="_blank" data-cursor="magnet" style="color: inherit; text-decoration: none;">TG: @lovecut2006blya</a>
+      <button id="sound-toggle-btn" class="sound-btn" data-cursor="magnet" title="Включить тактильный саунд-дизайн">
         <span>AUDIO:</span> <span id="sound-status-text">MUTED</span>
+        <div class="equalizer-bars" aria-hidden="true"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>
       </button>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Monumental Edge-to-Edge Hero Section -->
     <section class="hero-section">
-      <div class="hero-tag">АНДРЕЙ С. • ИРКУТСК, ЛИТВИНОВА 18 • INDEPENDENT ATELIER</div>
-      <h1 class="hero-title">LOVECUT</h1>
-      <p class="hero-subtitle">
-        Подстрижём как ишака, идеальная работа, время строго по часам. Чтобы чекнуть работы — смотрите в интерактивной 3D-линзе или бронируйте свободные слоты.
-      </p>
-      <div class="hero-actions">
-        <a href="#wall-section" class="btn-primary">
-          <span>РАБОТЫ</span>
-          <span>↓</span>
-        </a>
-        <a href="#booking-section" class="btn-secondary">
-          <span>БРОНЬ СЛОТА :00</span>
-          <span>→</span>
-        </a>
+      <div class="hero-meta-top">
+        <span>COORD: 52°17'N 104°18'E</span>
+        <span>BUILD: RAW ATELIER // NO COMPROMISE</span>
+      </div>
+
+      <div class="hero-center-monolith">
+        <div class="hero-tag">АНДРЕЙ С. • ИРКУТСК, ЛИТВИНОВА 18 • INDEPENDENT ATELIER</div>
+        <h1 class="hero-title">LOVECUT</h1>
+        <p class="hero-subtitle">
+          Подстрижём как ишака, идеальная работа, время строго по часам. Чтобы чекнуть работы — смотрите в интерактивной 3D-линзе или бронируйте свободные слоты.
+        </p>
+        <div class="hero-actions">
+          <a href="#wall-section" class="btn-primary" data-cursor="magnet">
+            <span>РАБОТЫ</span>
+            <span>↓</span>
+          </a>
+          <a href="#booking-section" class="btn-secondary" data-cursor="magnet">
+            <span>БРОНЬ СЛОТА :00</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-meta-bottom">
+        <span>STATUS: :00 CHAIR ACTIVE</span>
+        <span style="color: var(--crimson); font-weight: 700;">🩸 CASH ONLY • НАЛИЧНЫЕ</span>
+        <span>DEPOSIT: 200 ₽ Т-БАНК</span>
       </div>
     </section>
 
@@ -76,7 +102,7 @@
       </div>
     </div>
 
-    <!-- 3D Poster Wall Section (Inspired by book.sequel.co/#posters) -->
+    <!-- 3D Poster Wall Section (WebGL Lens) -->
     <section id="wall-section" class="wall-section">
       <div class="section-header">
         <div>
@@ -89,20 +115,21 @@
       </div>
 
       <div class="pv-stage-wrapper">
-        <div id="pv-stage" class="pv-stage"></div>
+        <div id="pv-stage" class="pv-stage" data-cursor="drag" data-cursor-label="DRAG"></div>
         <div class="pv-controls">
           <div class="pv-hint-pill">ТЯНИТЕ ДЛЯ ПЕРЕМЕЩЕНИЯ</div>
-          <button id="wall-zoom-in" class="ctrl-btn" title="Приблизить">+</button>
-          <button id="wall-zoom-out" class="ctrl-btn" title="Отдалить">−</button>
-          <button id="wall-reset" class="ctrl-btn" title="Сбросить позицию">СБРОС</button>
+          <button id="wall-zoom-in" class="ctrl-btn" data-cursor="magnet" title="Приблизить">+</button>
+          <button id="wall-zoom-out" class="ctrl-btn" data-cursor="magnet" title="Отдалить">−</button>
+          <button id="wall-reset" class="ctrl-btn" data-cursor="magnet" title="Сбросить позицию">СБРОС</button>
         </div>
       </div>
     </section>
 
-    <!-- Master's Manifest Section (European Editorial Layout) -->
+    <!-- Master's Manifest Section (European Editorial 3D Tilt Layout) -->
     <section class="manifest-section">
       <div class="manifest-editorial-grid">
         <div class="manifest-main-col">
+          <div class="duct-tape-badge">INDEPENDENT STREET ATELIER</div>
           <div class="section-label">02. ПРАВИЛА</div>
           <h2 class="editorial-headline">ПОДСТРИЖЁМ УЖАСНО ЗА ВАШИ ДЕНЬГИ.</h2>
           <p class="editorial-sub">
@@ -111,17 +138,17 @@
         </div>
 
         <div class="manifest-rules-col">
-          <div class="rule-manifest-entry">
+          <div class="tilt-card" data-cursor="snip">
             <span class="rule-index">01</span>
             <div>
               <h3 class="rule-entry-title">ВЫБИРАЕМ ВРЕМЯ ТОЛЬКО :00</h3>
               <p class="rule-entry-text">
-                Запись ведется строго на начало часа: 13:00, 14:00, 15:00... Никаких минут не добавляем.
+                Запись ведется строго на начало часа: 13:00, 14:00, 15:00... Никаких лишних минут не добавляем.
               </p>
             </div>
           </div>
 
-          <div class="rule-manifest-entry">
+          <div class="tilt-card" data-cursor="snip">
             <span class="rule-index">02</span>
             <div>
               <h3 class="rule-entry-title">ЗАЛОГ 200 ₽ — ЭТО БРОНЬ МЕСТА</h3>
@@ -131,7 +158,7 @@
             </div>
           </div>
 
-          <div class="rule-manifest-entry">
+          <div class="tilt-card" data-cursor="snip">
             <span class="rule-index">03</span>
             <div>
               <h3 class="rule-entry-title">ОПЛАТА ТОЛЬКО НАЛИЧНЫМИ 🩸</h3>
@@ -144,208 +171,212 @@
       </div>
     </section>
 
-    <!-- 4-Step Booking Funnel Section -->
+    <!-- 4-Step Booking Funnel Section (Thermal Docket Style) -->
     <section id="booking-section" class="booking-section">
       <div class="booking-container">
-        <div class="section-label" style="text-align: center;">03. БРОНЬ</div>
-        <h2 class="section-title" style="text-align: center; margin-bottom: 24px;">ЗАПИСЬ К АНДРЕЮ</h2>
-
-        <!-- Booking Slip Barcode Header -->
-        <div class="booking-slip-header">
-          <div class="slip-barcode" aria-hidden="true">||| | |||| | ||||| ||| | |||||||| |||| |</div>
-          <div class="slip-tag">ANDREY S. • STRICT :00 POLICY</div>
-        </div>
-
-        <!-- Selected Specimen Badge -->
-        <div class="selected-badge-wrapper">
-          <div id="selected-specimen-badge" class="selected-badge" style="display: none;"></div>
-        </div>
-
-        <!-- Step Nav Bar -->
-        <div class="step-nav-bar">
-          <div class="step-progress-line" id="flow-progress"></div>
-          
-          <div class="step-indicator-item active" data-step="1">
-            <div class="step-circle">1</div>
-            <span class="step-label">Правила</span>
-          </div>
-          
-          <div class="step-indicator-item" data-step="2">
-            <div class="step-circle">2</div>
-            <span class="step-label">Слот :00</span>
-          </div>
-          
-          <div class="step-indicator-item" data-step="3">
-            <div class="step-circle">3</div>
-            <span class="step-label">Залог 200₽</span>
-          </div>
-          
-          <div class="step-indicator-item" data-step="4">
-            <div class="step-circle">4</div>
-            <span class="step-label">Чек</span>
-          </div>
-        </div>
-
-        <!-- Step 1: Rules Agreement -->
-        <div class="step-panel active" data-step="1">
-          <h3 class="panel-title">ШАГ 1: ПРАВИЛА МАСТЕРА</h3>
-          <p class="panel-desc">
-            Чтобы не было недопониманий на входе, подтвердите согласие со строгими правилами записи:
-          </p>
-
-          <div class="rules-list">
-            <label class="custom-checkbox-row">
-              <input type="checkbox" id="rule-time">
-              <div class="checkbox-text">
-                <h4>1. ВЫБИРАЮ ВРЕМЯ ТОЛЬКО :00</h4>
-                <p>Не добавляю никаких лишних минут (запись только на ровный час).</p>
-              </div>
-            </label>
-
-            <label class="custom-checkbox-row">
-              <input type="checkbox" id="rule-deposit">
-              <div class="checkbox-text">
-                <h4>2. ВНОШУ 200 ₽ ЗАЛОГА ДЛЯ БРОНИ</h4>
-                <p>Место фиксируется только после перевода залога на Т-Банк.</p>
-              </div>
-            </label>
-
-            <label class="custom-checkbox-row">
-              <input type="checkbox" id="rule-cash">
-              <div class="checkbox-text">
-                <h4>3. ОСТАТОК ОПЛАТЫ — ТОЛЬКО НАЛИЧНЫМИ 🩸</h4>
-                <p>Переводы на месте не принимаются. Я сниму наличные заранее.</p>
-              </div>
-            </label>
+        
+        <div class="thermal-receipt" id="thermal-receipt-docket">
+          <!-- Top Receipt Barcode & Header -->
+          <div class="booking-slip-header">
+            <div class="slip-barcode" aria-hidden="true">||| | |||| | ||||| ||| | |||||||| |||| | ||| |||| |</div>
+            <div class="slip-tag">LOVECUT DOCKET // STRICT :00 POLICY</div>
           </div>
 
-          <button id="btn-step-1" class="btn-primary" style="width: 100%; justify-content: center;" data-goto-step="2" disabled>
-            <span>ПРАВИЛА ПРИНЯЛ — ПЕРЕЙТИ К ВЫБОРУ ВРЕМЕНИ</span>
-            <span>→</span>
-          </button>
-        </div>
-
-        <!-- Step 2: Native Date & Time Slot Selector -->
-        <div class="step-panel" data-step="2">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-            <h3 class="panel-title" style="margin-bottom: 0;">ШАГ 2: ВЫБОР ДАТЫ И СЛОТА</h3>
-            <span style="font-size: 0.75rem; color: var(--crimson); border: 1px solid var(--border-active); padding: 3px 8px; background: rgba(255,30,39,0.08);">
-              ПРЯМАЯ ЗАПИСЬ К МАСТЕРУ • БЕЗ БОТОВ И САЛОНОВ
-            </span>
-          </div>
-          <p class="panel-desc">
-            Выберите дату и свободное время. Напоминаем: запись строго на ровный час (<strong>:00</strong>).
-          </p>
-
-          <!-- Dynamic Calendar Days Scroll -->
-          <div style="margin-bottom: 16px;">
-            <div class="text-xs text-dim" style="margin-bottom: 8px;">1. ВЫБЕРИТЕ ДАТУ:</div>
-            <div class="calendar-days-scroll" id="calendar-days-container"></div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 20px; border-bottom: 1px solid var(--border-hairline); padding-bottom: 12px;">
+            <h2 class="section-title" style="margin-bottom: 0; font-size: 1.8rem;">ЗАПИСЬ К АНДРЕЮ</h2>
+            <span style="font-size: 0.72rem; color: var(--crimson); letter-spacing: 0.15em;">SLIP #2006-IRK</span>
           </div>
 
-          <!-- Time Slots Grid -->
-          <div style="margin-bottom: 24px;">
-            <div class="text-xs text-dim" style="margin-bottom: 8px;">2. СВОБОДНЫЕ СЛОТЫ (ТОЛЬКО НАЧАЛО ЧАСА :00):</div>
-            <div class="time-slots-grid" id="time-slots-container"></div>
+          <!-- Selected Specimen Badge -->
+          <div class="selected-badge-wrapper">
+            <div id="selected-specimen-badge" class="selected-badge" style="display: none;"></div>
           </div>
 
-          <!-- Selected Summary Box -->
-          <div class="slot-selection-summary" id="slot-summary-box">
-            <div>
-              <div class="text-xs text-dim">ВЫБРАННЫЙ СЛОТ ДЛЯ ЗАПИСИ:</div>
-              <div style="font-size: 1.1rem; font-weight: 800; color: #fff;" id="selected-slot-display">
-                — Выберите время выше —
-              </div>
+          <!-- Industrial Terminal Phase Bar -->
+          <div class="terminal-phases" id="terminal-phases-bar">
+            <div class="phase-item active" data-step="1">
+              <span class="phase-num">01</span>
+              <span>ПРАВИЛА</span>
             </div>
-            <div style="font-size: 0.8rem; color: var(--crimson); text-align: right;">
-              ⏳ Бронь фиксируется залогом 200 ₽
+            <div class="phase-item" data-step="2">
+              <span class="phase-num">02</span>
+              <span>ВРЕМЯ :00</span>
+            </div>
+            <div class="phase-item" data-step="3">
+              <span class="phase-num">03</span>
+              <span>ЗАЛОГ 200 ₽</span>
+            </div>
+            <div class="phase-item" data-step="4">
+              <span class="phase-num">04</span>
+              <span>ОТПРАВКА ЧЕКА</span>
             </div>
           </div>
 
-          <div style="display: flex; gap: 12px;">
-            <button class="btn-secondary" data-goto-step="1">← НАЗАД К ПРАВИЛАМ</button>
-            <button class="btn-primary" id="btn-step-2" style="flex: 1; justify-content: center;" data-goto-step="3" disabled>
-              <span>ВРЕМЯ ВЫБРАНО — ПЕРЕЙТИ К ЗАЛОГУ 200 ₽</span>
+          <div class="receipt-perforation" aria-hidden="true"></div>
+
+          <!-- Step 1: Rules Agreement -->
+          <div class="step-panel active" data-step="1">
+            <h3 class="panel-title">ШАГ 1: ПРАВИЛА МАСТЕРА</h3>
+            <p class="panel-desc">
+              Чтобы не было недопониманий на входе, подтвердите согласие со строгими правилами записи:
+            </p>
+
+            <div class="rules-list">
+              <label class="custom-checkbox-row">
+                <input type="checkbox" id="rule-time">
+                <div class="checkbox-text">
+                  <h4>1. ВЫБИРАЮ ВРЕМЯ ТОЛЬКО :00</h4>
+                  <p>Не добавляю никаких лишних минут (запись только на ровный час).</p>
+                </div>
+              </label>
+
+              <label class="custom-checkbox-row">
+                <input type="checkbox" id="rule-deposit">
+                <div class="checkbox-text">
+                  <h4>2. ВНОШУ 200 ₽ ЗАЛОГА ДЛЯ БРОНИ</h4>
+                  <p>Место фиксируется только после перевода залога на Т-Банк.</p>
+                </div>
+              </label>
+
+              <label class="custom-checkbox-row">
+                <input type="checkbox" id="rule-cash">
+                <div class="checkbox-text">
+                  <h4>3. ОСТАТОК ОПЛАТЫ — ТОЛЬКО НАЛИЧНЫМИ 🩸</h4>
+                  <p>Переводы на месте не принимаются. Я сниму наличные заранее.</p>
+                </div>
+              </label>
+            </div>
+
+            <button id="btn-step-1" class="btn-primary" style="width: 100%; justify-content: center;" data-goto-step="2" data-cursor="magnet" disabled>
+              <span>ПРАВИЛА ПРИНЯЛ — ПЕРЕЙТИ К ВЫБОРУ ВРЕМЕНИ</span>
               <span>→</span>
             </button>
           </div>
-        </div>
 
-        <!-- Step 3: 200 RUB Deposit -->
-        <div class="step-panel" data-step="3">
-          <h3 class="panel-title">ШАГ 3: ПЕРЕВОД ЗАЛОГА (200 ₽)</h3>
-          <p class="panel-desc">
-            Переведите ровно <strong>200 ₽</strong> для бронирования места по реквизитам Андрея в Т-Банке:
-          </p>
+          <!-- Step 2: Native Date & Time Slot Selector -->
+          <div class="step-panel" data-step="2">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h3 class="panel-title" style="margin-bottom: 0;">ШАГ 2: ВЫБОР ДАТЫ И СЛОТА</h3>
+              <span style="font-size: 0.75rem; color: var(--crimson); border: 1px solid var(--border-active); padding: 3px 8px; background: rgba(255,30,39,0.08);">
+                ПРЯМАЯ ЗАПИСЬ К МАСТЕРУ • БЕЗ БОТОВ И САЛОНОВ
+              </span>
+            </div>
+            <p class="panel-desc">
+              Выберите дату и свободное время. Напоминаем: запись строго на ровный час (<strong>:00</strong>).
+            </p>
 
-          <div class="requisites-box">
-            <div class="req-row">
+            <!-- Dynamic Calendar Days Scroll -->
+            <div style="margin-bottom: 16px;">
+              <div class="text-xs text-dim" style="margin-bottom: 8px;">1. ВЫБЕРИТЕ ДАТУ:</div>
+              <div class="calendar-days-scroll" id="calendar-days-container"></div>
+            </div>
+
+            <!-- Time Slots Grid -->
+            <div style="margin-bottom: 24px;">
+              <div class="text-xs text-dim" style="margin-bottom: 8px;">2. СВОБОДНЫЕ СЛОТЫ (ТОЛЬКО НАЧАЛО ЧАСА :00):</div>
+              <div class="time-slots-grid" id="time-slots-container"></div>
+            </div>
+
+            <!-- Selected Summary Box -->
+            <div class="slot-selection-summary" id="slot-summary-box">
               <div>
-                <div class="text-xs text-dim">СУММА БРОНИ:</div>
-                <div style="font-size: 1.2rem; font-weight: 800; color: var(--crimson);">200 ₽</div>
+                <div class="text-xs text-dim">ВЫБРАННЫЙ СЛОТ ДЛЯ ЗАПИСИ:</div>
+                <div style="font-size: 1.1rem; font-weight: 800; color: #fff;" id="selected-slot-display">
+                  — Выберите время выше —
+                </div>
               </div>
-              <div style="text-align: right;">
-                <div class="text-xs text-dim">ПОЛУЧАТЕЛЬ:</div>
-                <div style="font-weight: 700;">Андрей С. (Т-Банк)</div>
+              <div style="font-size: 0.8rem; color: var(--crimson); text-align: right;">
+                ⏳ Бронь фиксируется залогом 200 ₽
               </div>
             </div>
 
-            <div class="req-row">
-              <div>
-                <div class="text-xs text-dim">НОМЕР ТЕЛЕФОНА:</div>
-                <div style="font-weight: 700; letter-spacing: 0.05em;">8 (908) 660-84-98</div>
-              </div>
-              <button id="copy-phone-btn" class="copy-pill-btn">📋 СКОПИРОВАТЬ НОМЕР</button>
-            </div>
-
-            <div class="req-row">
-              <div>
-                <div class="text-xs text-dim">ПРЯМАЯ ССЫЛКА НА СБОР:</div>
-                <div class="text-xs" style="color: var(--text-muted); word-break: break-all;">tbank.ru/cf/3h1q5KxghRV</div>
-              </div>
-              <div style="display: flex; gap: 8px;">
-                <a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank" class="copy-pill-btn" style="text-decoration: none;">ОТКРЫТЬ Т-БАНК ↗</a>
-                <button id="copy-link-btn" class="copy-pill-btn">СКОПИРОВАТЬ</button>
-              </div>
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-secondary" data-goto-step="1" data-cursor="magnet">← НАЗАД К ПРАВИЛАМ</button>
+              <button class="btn-primary" id="btn-step-2" style="flex: 1; justify-content: center;" data-goto-step="3" data-cursor="magnet" disabled>
+                <span>ВРЕМЯ ВЫБРАНО — ПЕРЕЙТИ К ЗАЛОГУ 200 ₽</span>
+                <span>→</span>
+              </button>
             </div>
           </div>
 
-          <div style="display: flex; gap: 12px;">
-            <button class="btn-secondary" data-goto-step="2">← НАЗАД</button>
-            <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="4">
-              <span>ЗАЛОГ 200 ₽ ОПЛАЧЕН — ПРИКРЕПИТЬ ЧЕК</span>
-              <span>→</span>
-            </button>
+          <!-- Step 3: 200 RUB Deposit -->
+          <div class="step-panel" data-step="3">
+            <h3 class="panel-title">ШАГ 3: ПЕРЕВОД ЗАЛОГА (200 ₽)</h3>
+            <p class="panel-desc">
+              Переведите ровно <strong>200 ₽</strong> для бронирования места по реквизитам Андрея в Т-Банке:
+            </p>
+
+            <div class="requisites-box">
+              <div class="req-row">
+                <div>
+                  <div class="text-xs text-dim">СУММА БРОНИ:</div>
+                  <div style="font-size: 1.2rem; font-weight: 800; color: var(--crimson);">200 ₽</div>
+                </div>
+                <div style="text-align: right;">
+                  <div class="text-xs text-dim">ПОЛУЧАТЕЛЬ:</div>
+                  <div style="font-weight: 700;">Андрей С. (Т-Банк)</div>
+                </div>
+              </div>
+
+              <div class="req-row">
+                <div>
+                  <div class="text-xs text-dim">НОМЕР ТЕЛЕФОНА:</div>
+                  <div style="font-weight: 700; letter-spacing: 0.05em;">8 (908) 660-84-98</div>
+                </div>
+                <button id="copy-phone-btn" class="copy-pill-btn" data-cursor="magnet">📋 СКОПИРОВАТЬ НОМЕР</button>
+              </div>
+
+              <div class="req-row">
+                <div>
+                  <div class="text-xs text-dim">ПРЯМАЯ ССЫЛКА НА СБОР:</div>
+                  <div class="text-xs" style="color: var(--text-muted); word-break: break-all;">tbank.ru/cf/3h1q5KxghRV</div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank" class="copy-pill-btn" data-cursor="magnet" style="text-decoration: none;">ОТКРЫТЬ Т-БАНК ↗</a>
+                  <button id="copy-link-btn" class="copy-pill-btn" data-cursor="magnet">СКОПИРОВАТЬ</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-secondary" data-goto-step="2" data-cursor="magnet">← НАЗАД</button>
+              <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="4" data-cursor="magnet">
+                <span>ЗАЛОГ 200 ₽ ОПЛАЧЕН — ПРИКРЕПИТЬ ЧЕК</span>
+                <span>→</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Step 4: Receipt Upload & Telegram -->
-        <div class="step-panel" data-step="4">
-          <h3 class="panel-title">ШАГ 4: ОТПРАВКА ЧЕКА МАСТЕРУ</h3>
-          <p class="panel-desc">
-            После перевода сохраните чек или скриншот перевода и скиньте его напрямую в Telegram мастеру:
-          </p>
+          <!-- Step 4: Receipt Upload & Telegram -->
+          <div class="step-panel" data-step="4">
+            <h3 class="panel-title">ШАГ 4: ОТПРАВКА ЧЕКА МАСТЕРУ</h3>
+            <p class="panel-desc">
+              После перевода сохраните чек или скриншот перевода и скиньте его напрямую в Telegram мастеру:
+            </p>
 
-          <input type="file" id="receipt-input" accept="image/*" style="display: none;">
-          <div class="receipt-dropzone" id="receipt-dropzone">
-            <div class="dropzone-icon">📎</div>
-            <h4>ПЕРЕТАЩИТЕ СКРИНШОТ ЧЕКА ИЛИ КЛИКНИТЕ</h4>
-            <p class="text-xs text-dim" style="margin-top: 6px;">Файл сохранится для быстрого предпросмотра</p>
+            <input type="file" id="receipt-input" accept="image/*" style="display: none;">
+            <div class="receipt-dropzone" id="receipt-dropzone" data-cursor="drag" data-cursor-label="DROP">
+              <div class="laser-scanline" aria-hidden="true"></div>
+              <div class="dropzone-icon">📎</div>
+              <h4>ПЕРЕТАЩИТЕ СКРИНШОТ ЧЕКА ИЛИ КЛИКНИТЕ</h4>
+              <p class="text-xs text-dim" style="margin-top: 6px;">Файл зафиксируется для отправки мастеру</p>
+            </div>
+
+            <div id="receipt-preview" style="display: none;"></div>
+
+            <div style="margin-bottom: 28px;">
+              <button id="tg-send-btn" class="btn-telegram" data-cursor="magnet">
+                <span>ОТКРЫТЬ TELEGRAM ДЛЯ ОТПРАВКИ ЧЕКА (@LOVECUT2006)</span>
+                <span>✈️</span>
+              </button>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-hairline); padding-top: 20px;">
+              <button class="btn-secondary" data-goto-step="3" data-cursor="magnet">← НАЗАД К РЕКВИЗИТАМ</button>
+              <span class="text-xs text-dim">Остаток стрижки — только наличными 🩸</span>
+            </div>
           </div>
 
-          <div id="receipt-preview" style="display: none;"></div>
-
-          <div style="margin-bottom: 28px;">
-            <button id="tg-send-btn" class="btn-primary" style="width: 100%; justify-content: center; background: #0088cc; border-color: #0088cc; box-shadow: 0 4px 20px rgba(0, 136, 204, 0.3);">
-              <span>ОТКРЫТЬ TELEGRAM ДЛЯ ОТПРАВКИ ЧЕКА (@LOVECUT2006)</span>
-              <span>✈️</span>
-            </button>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-hairline); padding-top: 20px;">
-            <button class="btn-secondary" data-goto-step="3">← НАЗАД К РЕКВИЗИТАМ</button>
-            <span class="text-xs text-dim">Остаток стрижки — только наличными 🩸</span>
-          </div>
         </div>
 
       </div>
@@ -354,13 +385,13 @@
 
   <!-- Pure Photo Zoom Dialog (Direct, Clean, No Fake Copy) -->
   <dialog id="photo-dialog" class="photo-zoom-dialog" aria-label="Просмотр фотографии">
-    <button class="photo-close-btn" id="photo-close-btn" aria-label="Закрыть">✕</button>
+    <button class="photo-close-btn" id="photo-close-btn" data-cursor="magnet" aria-label="Закрыть">✕</button>
     <div class="photo-zoom-frame">
-      <img id="photo-zoom-img" src="" alt="Фотография работы Андрея">
+      <img id="photo-zoom-img" src="" alt="Фотография работы Андрея" data-cursor="view" data-cursor-label="CUT">
       <div class="photo-zoom-controls">
-        <button id="photo-prev-btn" class="photo-nav-pill">← ПРЕДЫДУЩЕЕ</button>
+        <button id="photo-prev-btn" class="photo-nav-pill" data-cursor="magnet">← ПРЕДЫДУЩЕЕ</button>
         <span class="photo-counter-tag"><strong id="photo-counter-num">01</strong> из 49</span>
-        <button id="photo-next-btn" class="photo-nav-pill">СЛЕДУЮЩЕЕ →</button>
+        <button id="photo-next-btn" class="photo-nav-pill" data-cursor="magnet">СЛЕДУЮЩЕЕ →</button>
       </div>
     </div>
   </dialog>
@@ -373,25 +404,25 @@
         <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
           Независимый барбер Андрей С. Иркутск, Литвинова 18. Никакого шаблонного барберинга. Только чистая форма, уличный стиль и честный подход.
         </p>
-        <div style="font-size: 0.8rem; color: var(--crimson);">🩸 CASH ONLY • ТОЛЬКО НАЛИЧНЫЕ</div>
+        <div style="font-size: 0.8rem; color: var(--crimson); font-weight: 700;">🩸 CASH ONLY • ТОЛЬКО НАЛИЧНЫМИ</div>
       </div>
 
       <div class="footer-links">
         <div class="footer-col">
           <h5>БРОНИРОВАНИЕ</h5>
           <ul>
-            <li><a href="#booking-section">Онлайн-бронь слота :00</a></li>
-            <li><a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank">Т-Банк 200 ₽ Бронь</a></li>
-            <li><a href="#booking-section">Правила визита</a></li>
+            <li><a href="#booking-section" data-cursor="magnet">Онлайн-бронь слота :00</a></li>
+            <li><a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank" data-cursor="magnet">Т-Банк 200 ₽ Бронь</a></li>
+            <li><a href="#booking-section" data-cursor="magnet">Правила визита</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h5>СВЯЗЬ</h5>
           <ul>
-            <li><a href="https://t.me/lovecut2006blya" target="_blank">Telegram Канал</a></li>
-            <li><a href="https://t.me/LOVECUT2006" target="_blank">Личка @LOVECUT2006</a></li>
-            <li><a href="tel:89086608498">+7 (908) 660-84-98</a></li>
+            <li><a href="https://t.me/lovecut2006blya" target="_blank" data-cursor="magnet">Telegram Канал</a></li>
+            <li><a href="https://t.me/LOVECUT2006" target="_blank" data-cursor="magnet">Личка @LOVECUT2006</a></li>
+            <li><a href="tel:89086608498" data-cursor="magnet">+7 (908) 660-84-98</a></li>
           </ul>
         </div>
 
@@ -413,6 +444,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script type="module" src="js/main.js?v=4"></script>
+  <script type="module" src="js/main.js?v=5"></script>
 </body>
 </html>

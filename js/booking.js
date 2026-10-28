@@ -1,7 +1,8 @@
 import { sound } from './sound-fx.js';
+import { triggerRazorSlice, triggerRubberStamp } from './motion.js';
 
 export function initBookingFlow() {
-  const stepIndicators = document.querySelectorAll('.step-indicator-item');
+  const stepIndicators = document.querySelectorAll('.step-indicator-item, .phase-item');
   const stepPanels = document.querySelectorAll('.step-panel');
   const progressBar = document.getElementById('flow-progress');
 
@@ -51,6 +52,11 @@ export function initBookingFlow() {
     currentStep = step;
     sound.playClick();
 
+    const activePanel = document.querySelector(`.step-panel[data-step="${step}"]`);
+    if (activePanel) {
+      triggerRazorSlice(activePanel);
+    }
+
     stepPanels.forEach(panel => {
       panel.classList.remove('active');
       if (parseInt(panel.dataset.step, 10) === step) {
@@ -68,6 +74,15 @@ export function initBookingFlow() {
     if (progressBar) {
       const pct = ((step - 1) / 3) * 100;
       progressBar.style.width = `${pct}%`;
+    }
+
+    // Slam rubber stamp on receipt docket on deposit & slip stages
+    if (step >= 3) {
+      const docket = document.getElementById('thermal-receipt-docket');
+      if (docket) {
+        const text = step === 3 ? 'ЗАЛОГ 200 ₽ // СТРОГО :00' : 'SLIP PRINTED // TELEGRAM DIRECT';
+        triggerRubberStamp(docket, text);
+      }
     }
   }
 
@@ -126,6 +141,7 @@ export function initBookingFlow() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = `calendar-day-btn ${idx === 0 ? 'active' : ''}`;
+      btn.setAttribute('data-cursor', 'magnet');
       btn.innerHTML = `
         <div class="day-btn-dow">${day.dowStr}</div>
         <div class="day-btn-date">${day.dayNum} ${day.monthStr}</div>
@@ -146,6 +162,7 @@ export function initBookingFlow() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'time-slot-btn';
+      btn.setAttribute('data-cursor', 'magnet');
       btn.innerText = slot;
       btn.addEventListener('click', () => {
         sound.playClick();

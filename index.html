@@ -1,58 +1,397 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOVECUT | BARBER</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080a">
+  <meta name="color-scheme" content="dark">
+  <title>LOVECUT 2006 // АНДРЕЙ С. // RAW STREET CUTS</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-    <div class="grain-overlay"></div>
-    
-    <header class="hero">
-        <h1 class="glitch" data-text="LOVECUT">LOVECUT</h1>
-        <p class="typewriter">СТРИЖКИ ОТ АНДРЕЯ</p>
-        <button class="cta-button pulse" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">ЗАПИСАТЬСЯ</button>
-    </header>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
 
-    <main>
-        <section id="about" class="fade-in">
-            <div class="dossier">
-                <p>> МАСТЕР: АНДРЕЙ</p>
-                <p>> СПЕЦИАЛИЗАЦИЯ: МУЖСКИЕ СТРИЖКИ</p>
-                <p>> СТИЛЬ: УЛИЧНЫЙ / КЛАССИКА</p>
-            </div>
-        </section>
+  <!-- Top Brutalist Status Bar -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="status-dot"></span>
+      <span>[STATUS: БРОНЬ ОТКРЫТА]</span>
+      <span style="opacity: 0.4;">//</span>
+      <span>GEO: ИРКУТСК</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="https://t.me/lovecut2006blya" target="_blank" style="color: inherit; text-decoration: none;">TG: @lovecut2006blya</a>
+      <button id="sound-toggle-btn" class="sound-btn" title="Включить тактильный саунд-дизайн">
+        <span>AUDIO:</span> <span id="sound-status-text">MUTED</span>
+      </button>
+    </div>
+  </header>
 
-        <!-- Booking Flow -->
-        <section id="booking" class="booking-flow">
-            <div class="progress-bar"><div id="progress"></div></div>
-            <div class="step step-1">
-                <h3>ПРАВИЛА</h3>
-                <label><input type="checkbox" id="rules-check"> Записываюсь только на :00</label><br>
-                <label><input type="checkbox"> Оплата — только наличные</label><br>
-                <button onclick="goToStep(2)">ДАЛЕЕ</button>
-            </div>
-            <div class="step step-2" style="display:none;">
-                <h3>ЗАПИСЬ (DIKIDI)</h3>
-                <a href="https://dikidi.net/1985442" target="_blank" class="cta-button">ВЫБРАТЬ ВРЕМЯ</a>
-                <button onclick="goToStep(3)">Я ЗАПИСАЛСЯ</button>
-            </div>
-            <div class="step step-3" style="display:none;">
-                <h3>ОПЛАТА БРОНИ (200₽)</h3>
-                <p>Реквизиты: Т-Банк, Андрей С.</p>
-                <button onclick="goToStep(4)">ОПЛАТИЛ, ДАЛЕЕ</button>
-            </div>
-            <div class="step step-4" style="display:none;">
-                <h3>ЗАГРУЗКА ЧЕКА</h3>
-                <input type="file" id="receipt-upload">
-                <button id="submit-btn" onclick="alert('Чек отправлен!')">ОТПРАВИТЬ ЧЕК</button>
-            </div>
-        </section>
-    </main>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-tag">[ INDEPENDENT UNDERGROUND BARBER ]</div>
+      <h1 class="hero-title glitch" data-text="LOVECUT 2006">LOVECUT 2006</h1>
+      <p class="hero-subtitle">
+        Стрижки от Андрея. Никакой стерильной инстаграмной херни — только четкая геометрия, лезвия и сырой уличный стиль. Выбирай работу в бесконечной 3D-стене или переходи к бронированию.
+      </p>
+      <div class="hero-actions">
+        <a href="#wall-section" class="btn-primary pulse-glow">
+          <span>СМОТРЕТЬ РАБОТЫ (3D WALL)</span>
+          <span>↓</span>
+        </a>
+        <a href="#booking-section" class="btn-secondary">
+          <span>ПРАВИЛА И ЗАПИСЬ</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
 
-    <script src="js/main.js" type="module"></script>
-    <script src="js/booking.js" type="module"></script>
+    <!-- 3D Poster Wall Section (Inspired by book.sequel.co/#posters) -->
+    <section id="wall-section" class="wall-section">
+      <div class="section-header">
+        <div>
+          <div class="section-label">// 01. АРХИВ СТРИЖЕК // SPECIMENS</div>
+          <h2 class="section-title">ИНТЕРАКТИВНАЯ СТЕНА</h2>
+        </div>
+        <p class="section-desc">
+          Бесконечный шейдерный архив реальных работ из канала. Тяните холст мышью или пальцем для перемещения. Кликайте на любую работу, чтобы открыть детальное досье.
+        </p>
+      </div>
+
+      <div class="pv-stage-wrapper">
+        <div id="pv-stage" class="pv-stage"></div>
+        <div class="pv-controls">
+          <div class="pv-hint-pill">ТЯНИТЕ ДЛЯ ПЕРЕМЕЩЕНИЯ</div>
+          <button id="wall-zoom-in" class="ctrl-btn" title="Приблизить">+</button>
+          <button id="wall-zoom-out" class="ctrl-btn" title="Отдалить">−</button>
+          <button id="wall-reset" class="ctrl-btn" title="Сбросить позицию">СБРОС</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master's Manifest Section -->
+    <section class="manifest-section">
+      <div class="section-label">// 02. МАНИФЕСТ И ПРАВИЛА</div>
+      <h2 class="section-title">ПОЧЕМУ ЗДЕСЬ ВСЁ ТАК</h2>
+
+      <div class="manifest-grid">
+        <div class="dossier-card tilt-card">
+          <div class="card-num">[ 01. ВАЙБ И ФИЛОСОФИЯ ]</div>
+          <h3 class="card-title">UNDERGROUND ATELIER</h3>
+          <p class="card-text">
+            Стрижки для тех, кто понимает в уличной культуре, ценит метал, Ghostemane и качественный звук. Каждая стрижка — это не конвейер, а штучный дроп под анатомию головы и форму черепа.
+          </p>
+        </div>
+
+        <div class="dossier-card tilt-card">
+          <div class="card-num">[ 02. СТРОГИЙ ТАЙМИНГ ]</div>
+          <h3 class="card-title">ВРЕМЯ ТОЛЬКО /00</h3>
+          <p class="card-text">
+            ‼️ Запись строго на начало часа: 14:00, 15:00, 18:00 и т.д. Никаких минут (15:20, 16:45) добавлять нельзя. Четкий тайминг уважает время мастера и каждого следующего клиента.
+          </p>
+        </div>
+
+        <div class="dossier-card tilt-card">
+          <div class="card-num">[ 03. БРОНЬ И РАСЧЕТ ]</div>
+          <h3 class="card-title">НАЛИЧКА ONLY 🩸</h3>
+          <p class="card-text">
+            Для брони времени переводится залог 200 ₽ (Т-Банк). Весь оставшийся расчет за стрижку принимается ИСКЛЮЧИТЕЛЬНО НАЛИЧНЫМИ. Приготовьте купюры заранее перед визитом.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Step Booking Funnel Section -->
+    <section id="booking-section" class="booking-section">
+      <div class="booking-container">
+        <div class="section-label" style="text-align: center;">// 03. ПОШАГОВАЯ БРОНЬ</div>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 24px;">ЗАПИСЬ К АНДРЕЮ</h2>
+
+        <!-- Selected Specimen Badge -->
+        <div class="selected-badge-wrapper">
+          <div id="selected-specimen-badge" class="selected-badge" style="display: none;"></div>
+        </div>
+
+        <!-- Step Nav Bar -->
+        <div class="step-nav-bar">
+          <div class="step-progress-line" id="flow-progress"></div>
+          
+          <div class="step-indicator-item active" data-step="1">
+            <div class="step-circle">1</div>
+            <span class="step-label">Правила</span>
+          </div>
+          
+          <div class="step-indicator-item" data-step="2">
+            <div class="step-circle">2</div>
+            <span class="step-label">Dikidi</span>
+          </div>
+          
+          <div class="step-indicator-item" data-step="3">
+            <div class="step-circle">3</div>
+            <span class="step-label">Залог 200₽</span>
+          </div>
+          
+          <div class="step-indicator-item" data-step="4">
+            <div class="step-circle">4</div>
+            <span class="step-label">Чек</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Rules Agreement -->
+        <div class="step-panel active" data-step="1">
+          <h3 class="panel-title">ШАГ 1: ПРАВИЛА МАСТЕРА</h3>
+          <p class="panel-desc">
+            Чтобы не было недопониманий на входе, подтвердите согласие со строгими правилами записи:
+          </p>
+
+          <div class="rules-list">
+            <label class="custom-checkbox-row">
+              <input type="checkbox" id="rule-time">
+              <div class="checkbox-text">
+                <h4>1. ВЫБИРАЮ ВРЕМЯ ТОЛЬКО /00</h4>
+                <p>Не добавляю никаких лишних минут (запись только на ровный час).</p>
+              </div>
+            </label>
+
+            <label class="custom-checkbox-row">
+              <input type="checkbox" id="rule-deposit">
+              <div class="checkbox-text">
+                <h4>2. ВНОШУ 200 ₽ ЗАЛОГА ДЛЯ БРОНИ</h4>
+                <p>Место фиксируется только после перевода залога на Т-Банк.</p>
+              </div>
+            </label>
+
+            <label class="custom-checkbox-row">
+              <input type="checkbox" id="rule-cash">
+              <div class="checkbox-text">
+                <h4>3. ОСТАТОК ОПЛАТЫ — ТОЛЬКО НАЛИЧНЫМИ 🩸</h4>
+                <p>Переводы на месте не принимаются. Я сниму наличные заранее.</p>
+              </div>
+            </label>
+          </div>
+
+          <button id="btn-step-1" class="btn-primary" style="width: 100%; justify-content: center;" data-goto-step="2" disabled>
+            <span>ПРАВИЛА ПРИНЯЛ — ПЕРЕЙТИ К ВЫБОРУ ВРЕМЕНИ</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        <!-- Step 2: Dikidi Selection -->
+        <div class="step-panel" data-step="2">
+          <h3 class="panel-title">ШАГ 2: ВЫБОР ВРЕМЕНИ В DIKIDI</h3>
+          <p class="panel-desc">
+            Перейдите в официальную форму Dikidi и выберите удобный день и время (помните: строго на ровный час :00).
+          </p>
+
+          <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-hairline); padding: 24px; text-align: center; margin-bottom: 28px;">
+            <p style="color: var(--text-muted); margin-bottom: 16px;">
+              Ссылка на профиль мастера: <strong style="color: #fff;">dikidi.net/1985442</strong>
+            </p>
+            <a href="https://dikidi.net/1985442" target="_blank" class="btn-secondary" style="margin-bottom: 12px; display: inline-flex;">
+              <span>ОТКРЫТЬ DIKIDI ДЛЯ ЗАПИСИ ↗</span>
+            </a>
+            <p class="text-xs text-dim" style="margin-top: 8px;">Совет: сделайте скриншот записи в Dikidi, чтобы не забыть время</p>
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button class="btn-secondary" data-goto-step="1">← НАЗАД</button>
+            <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="3">
+              <span>Я ВЫБРАЛ ВРЕМЯ :00 — ДАЛЕЕ К ЗАЛОГУ</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: 200 RUB Deposit -->
+        <div class="step-panel" data-step="3">
+          <h3 class="panel-title">ШАГ 3: ПЕРЕВОД ЗАЛОГА (200 ₽)</h3>
+          <p class="panel-desc">
+            Переведите ровно <strong>200 ₽</strong> для бронирования места по реквизитам Андрея в Т-Банке:
+          </p>
+
+          <div class="requisites-box">
+            <div class="req-row">
+              <div>
+                <div class="text-xs text-dim">СУММА БРОНИ:</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: var(--crimson);">200 ₽</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="text-xs text-dim">ПОЛУЧАТЕЛЬ:</div>
+                <div style="font-weight: 700;">Андрей С. (Т-Банк)</div>
+              </div>
+            </div>
+
+            <div class="req-row">
+              <div>
+                <div class="text-xs text-dim">НОМЕР ТЕЛЕФОНА:</div>
+                <div style="font-weight: 700; letter-spacing: 0.05em;">8 (908) 660-84-98</div>
+              </div>
+              <button id="copy-phone-btn" class="copy-pill-btn">📋 СКОПИРОВАТЬ НОМЕР</button>
+            </div>
+
+            <div class="req-row">
+              <div>
+                <div class="text-xs text-dim">ПРЯМАЯ ССЫЛКА НА СБОР:</div>
+                <div class="text-xs" style="color: var(--text-muted); word-break: break-all;">tbank.ru/cf/3h1q5KxghRV</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank" class="copy-pill-btn" style="text-decoration: none;">ОТКРЫТЬ Т-БАНК ↗</a>
+                <button id="copy-link-btn" class="copy-pill-btn">СКОПИРОВАТЬ</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button class="btn-secondary" data-goto-step="2">← НАЗАД</button>
+            <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="4">
+              <span>ЗАЛОГ 200 ₽ ОПЛАЧЕН — ПРИКРЕПИТЬ ЧЕК</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Receipt Upload & Telegram -->
+        <div class="step-panel" data-step="4">
+          <h3 class="panel-title">ШАГ 4: ОТПРАВКА ЧЕКА МАСТЕРУ</h3>
+          <p class="panel-desc">
+            После перевода сохраните чек / скриншот перевода и скиньте его напрямую в Telegram мастеру:
+          </p>
+
+          <input type="file" id="receipt-input" accept="image/*" style="display: none;">
+          <div class="receipt-dropzone" id="receipt-dropzone">
+            <div class="dropzone-icon">📎</div>
+            <h4>ПЕРЕТАЩИТЕ СКРИНШОТ ЧЕКА ИЛИ КЛИКНИТЕ</h4>
+            <p class="text-xs text-dim" style="margin-top: 6px;">Файл сохранится для быстрого предпросмотра</p>
+          </div>
+
+          <div id="receipt-preview" style="display: none;"></div>
+
+          <div style="margin-bottom: 28px;">
+            <button id="tg-send-btn" class="btn-primary" style="width: 100%; justify-content: center; background: #0088cc; border-color: #0088cc; box-shadow: 0 4px 20px rgba(0, 136, 204, 0.3);">
+              <span>ОТКРЫТЬ TELEGRAM ДЛЯ ОТПРАВКИ ЧЕКА (@LOVECUT2006)</span>
+              <span>✈️</span>
+            </button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-hairline); padding-top: 20px;">
+            <button class="btn-secondary" data-goto-step="3">← НАЗАД К РЕКВИЗИТАМ</button>
+            <span class="text-xs text-dim">Остаток стрижки — только наличными 🩸</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Specimen Lightbox Dialog -->
+  <dialog id="specimen-dialog" class="specimen-modal" aria-labelledby="dlg-specimen-name">
+    <button class="modal-close-corner" id="dlg-close-btn" aria-label="Закрыть">✕</button>
+
+    <div class="modal-content-grid">
+      <div class="modal-image-col">
+        <img id="dlg-specimen-img" src="" alt="Стрижка">
+        <div class="modal-image-overlay" id="dlg-specimen-id">SPECIMEN #LC-01</div>
+      </div>
+
+      <div class="modal-details-col">
+        <div>
+          <div class="modal-header-tag">
+            <span>АРХИВ ЛИЧНЫХ РАБОТ</span>
+            <span style="color: var(--text-dim);">LOVECUT // ANDREY</span>
+          </div>
+          <h2 class="modal-title" id="dlg-specimen-name">TEXTURED CROP</h2>
+          <p class="modal-desc" id="dlg-specimen-desc">Рваная уличная текстура с плотным переходом.</p>
+
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">СИЛУЭТ / СТИЛЬ:</span>
+            <span class="modal-spec-value" id="dlg-specimen-style">Crop Fade</span>
+          </div>
+
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">ТАЙМИНГ:</span>
+            <span class="modal-spec-value" id="dlg-specimen-time">60 МИН / СТРОГО :00</span>
+          </div>
+
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">ИНСТРУМЕНТ:</span>
+            <span class="modal-spec-value" id="dlg-specimen-tools">Wahl Senior / Feather</span>
+          </div>
+
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">ЗАЛОГ ДЛЯ БРОНИ:</span>
+            <span class="modal-spec-value" style="color: var(--crimson);">200 ₽ (Т-БАНК)</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="modal-actions">
+            <button id="dlg-choose-btn" class="btn-primary" style="width: 100%; justify-content: center;">
+              <span>ХОЧУ ЭТУ СТРИЖКУ → К ЗАПИСИ</span>
+              <span>✂️</span>
+            </button>
+          </div>
+
+          <div class="modal-nav-bar">
+            <button id="dlg-prev-btn" class="modal-nav-btn">← ПРЕДЫДУЩАЯ</button>
+            <span>СТРЕЛКИ ИЛИ КЛИК ДЛЯ НАВИГАЦИИ</span>
+            <button id="dlg-next-btn" class="modal-nav-btn">СЛЕДУЮЩАЯ →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">LOVECUT 2006</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+          Независимый барбер Андрей С. Иркутск. Никакого шаблонного барберинга. Только чистая форма, уличный стиль и честный подход.
+        </p>
+        <div style="font-size: 0.8rem; color: var(--crimson);">🩸 CASH ONLY / ТОЛЬКО НАЛИЧНЫЕ</div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>БРОНИРОВАНИЕ</h5>
+          <ul>
+            <li><a href="https://dikidi.net/1985442" target="_blank">Dikidi Запись</a></li>
+            <li><a href="https://tbank.ru/cf/3h1q5KxghRV" target="_blank">Т-Банк 200 ₽ Бронь</a></li>
+            <li><a href="#booking-section">Правила визита</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>СВЯЗЬ</h5>
+          <ul>
+            <li><a href="https://t.me/lovecut2006blya" target="_blank">Telegram Канал</a></li>
+            <li><a href="https://t.me/LOVECUT2006" target="_blank">Личка @LOVECUT2006</a></li>
+            <li><a href="tel:89086608498">+7 (908) 660-84-98</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>ТЕХНОЛОГИИ</h5>
+          <ul>
+            <li>Three.js WebGL Lens</li>
+            <li>Procedural Web Audio</li>
+            <li>High-End Brutalism</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2006—2026 LOVECUT // ANDREY S. ALL RIGHTS RESERVED.</div>
+      <div>DESIGNED BY THE COUNCIL OF 10 AGENTS</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

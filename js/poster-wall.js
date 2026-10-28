@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.js';
 import { sound } from './sound-fx.js';
 
-export const CUT_PHOTOS = Array.from({ length: 47 }, (_, i) => {
+export const CUT_PHOTOS = Array.from({ length: 49 }, (_, i) => {
   const num = String(i + 1).padStart(2, '0');
   return {
     index: i,
@@ -142,14 +142,14 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     for (let i = 0; i < N; i++) {
       const y = i * (CHp + CG * 2) + CG + CHp / 2;
 
-      // Pure Swiss style label
+      // Clean brutalist label
       capCtx.fillStyle = '#ffffff';
       capCtx.textAlign = 'left';
-      capCtx.fillText(`NO. ${String(i + 1).padStart(2, '0')} // ARCHIVE`, CG + 4, y);
+      capCtx.fillText(`РАБОТА ${String(i + 1).padStart(2, '0')}`, CG + 4, y);
 
-      capCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      capCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       capCtx.textAlign = 'right';
-      capCtx.fillText('ZOOM ↗', CG + CWp - 4, y);
+      capCtx.fillText('ФОТО ↗', CG + CWp - 4, y);
     }
   };
   drawCaptions();
@@ -200,8 +200,9 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     }
 
     float idxOf(vec2 c) {
-      // Seamless modulo hash across all 31 photos
-      return mod(mod(c.x * 7.0 + c.y * 19.0 + floor(c.y / 2.0) * 5.0, 97.0), uN);
+      // Robust non-negative hash across all 49 photos
+      float h = c.x * 7.0 + c.y * 19.0 + floor(c.y / 2.0) * 5.0;
+      return mod(mod(h, uN) + uN, uN);
     }
 
     void main() {
@@ -307,8 +308,8 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     const fx = w.x - c.x * CELL.x;
     const fy = w.y - c.y * CELL.y;
     const onImg = fx >= PAD && fx <= PAD + IW && fy >= PAD && fy <= PAD + IH;
-    const rawIdx = (((c.x * 7 + c.y * 19 + Math.floor(c.y / 2) * 5) % 97 + 97) % 97) % N;
-    const idx = Math.floor(rawIdx);
+    const h = c.x * 7 + c.y * 19 + Math.floor(c.y / 2) * 5;
+    const idx = Math.floor(((h % N) + N) % N);
     return { c, onImg, idx };
   };
 

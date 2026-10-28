@@ -1,14 +1,24 @@
 import * as THREE from './vendor/three.module.js';
 import { sound } from './sound-fx.js';
 
-export const CUT_PHOTOS = Array.from({ length: 49 }, (_, i) => {
+const basePhotos = Array.from({ length: 49 }, (_, i) => {
   const num = String(i + 1).padStart(2, '0');
   return {
-    index: i,
     id: num,
     src: `assets/cuts/cut_${num}.jpg?v=3`
   };
 });
+
+// Randomize photo order on load (Fisher-Yates shuffle)
+for (let i = basePhotos.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [basePhotos[i], basePhotos[j]] = [basePhotos[j], basePhotos[i]];
+}
+
+export const CUT_PHOTOS = basePhotos.map((item, i) => ({
+  ...item,
+  index: i
+}));
 
 export function initPosterWall(stageEl, onSelectPhoto) {
   if (!stageEl) return null;
@@ -145,7 +155,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
       // Clean brutalist label
       capCtx.fillStyle = '#ffffff';
       capCtx.textAlign = 'left';
-      capCtx.fillText(`РАБОТА ${String(i + 1).padStart(2, '0')}`, CG + 4, y);
+      capCtx.fillText(`РАБОТА ${CUT_PHOTOS[i].id}`, CG + 4, y);
 
       capCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       capCtx.textAlign = 'right';

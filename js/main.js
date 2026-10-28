@@ -1,4 +1,4 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=3';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=4';
 import { initBookingFlow } from './booking.js';
 import { sound } from './sound-fx.js';
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       photoImg.src = item.src;
     }
     if (photoCounter) {
-      photoCounter.innerText = String(idx + 1).padStart(2, '0');
+      photoCounter.innerText = item.id;
     }
   }
 

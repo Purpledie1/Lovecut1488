@@ -1,47 +1,41 @@
-/* Glitch Effect on Title */
-.glitch {
-  position: relative;
-}
-
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Kinetic Marquee Ticker */
+.ticker-wrap {
   width: 100%;
-  height: 100%;
-  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  background: #000;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  padding: 10px 0;
+  white-space: nowrap;
+  user-select: none;
 }
 
-.glitch:hover::before {
-  left: -2px;
-  text-shadow: 2px 0 #00e5ff;
-  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+.ticker-move {
+  display: inline-block;
+  animation: ticker-anim 28s linear infinite;
 }
 
-.glitch:hover::after {
-  left: 2px;
-  text-shadow: -2px 0 #ff1e27;
-  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+.ticker-item {
+  display: inline-block;
+  padding: 0 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-@keyframes glitch-anim-1 {
-  0% { clip: rect(20px, 9999px, 44px, 0); }
-  20% { clip: rect(62px, 9999px, 85px, 0); }
-  40% { clip: rect(10px, 9999px, 30px, 0); }
-  60% { clip: rect(78px, 9999px, 98px, 0); }
-  80% { clip: rect(35px, 9999px, 60px, 0); }
-  100% { clip: rect(82px, 9999px, 105px, 0); }
+.ticker-item strong {
+  color: #fff;
 }
 
-@keyframes glitch-anim-2 {
-  0% { clip: rect(50px, 9999px, 75px, 0); }
-  20% { clip: rect(15px, 9999px, 38px, 0); }
-  40% { clip: rect(85px, 9999px, 110px, 0); }
-  60% { clip: rect(28px, 9999px, 55px, 0); }
-  80% { clip: rect(65px, 9999px, 90px, 0); }
-  100% { clip: rect(5px, 9999px, 25px, 0); }
+.ticker-item .blood {
+  color: var(--crimson);
+}
+
+@keyframes ticker-anim {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 /* Pulsing Status Dot */
@@ -52,33 +46,19 @@
   }
   50% {
     transform: scale(1.3);
-    opacity: 0.6;
-  }
-}
-
-/* Subtle Glowing Button Pulse */
-.pulse-glow {
-  animation: buttonPulse 3s infinite;
-}
-
-@keyframes buttonPulse {
-  0%, 100% {
-    box-shadow: 0 4px 20px rgba(255, 30, 39, 0.25);
-  }
-  50% {
-    box-shadow: 0 4px 30px rgba(255, 30, 39, 0.55);
+    opacity: 0.5;
   }
 }
 
 /* Modal fade animations */
 dialog[open] {
-  animation: modalZoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modalZoomIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes modalZoomIn {
   from {
     opacity: 0;
-    transform: scale(0.96) translateY(10px);
+    transform: scale(0.97) translateY(8px);
   }
   to {
     opacity: 1;
@@ -87,7 +67,7 @@ dialog[open] {
 }
 
 dialog::backdrop {
-  animation: backdropFade 0.25s ease forwards;
+  animation: backdropFade 0.22s ease forwards;
 }
 
 @keyframes backdropFade {
@@ -95,15 +75,13 @@ dialog::backdrop {
   to { opacity: 1; }
 }
 
-/* CRT Scanlines on hero background */
-.hero-section::after {
-  content: " ";
-  display: block;
+/* Authentic CRT / Analog Grain Subtle Scan */
+.crt-overlay {
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
-  z-index: 2;
+  inset: 0;
   pointer-events: none;
-  opacity: 0.3;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+  background-size: 100% 3px;
+  opacity: 0.4;
+  z-index: 1;
 }

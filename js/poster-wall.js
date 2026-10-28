@@ -238,23 +238,19 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
       const s = SPECIMENS[i];
       const y = i * (CHp + CG * 2) + CG + CHp / 2;
 
-      // Stylized pill background
-      capCtx.fillStyle = 'rgba(255, 30, 39, 0.12)';
-      capCtx.fillRect(CG, y - CHp / 2 + 2, CWp, CHp - 4);
+      // Clean editorial line: pure white mono
+      capCtx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      capCtx.fillRect(CG, y - CHp / 2 + 4, CWp, CHp - 8);
 
-      // Specimen ID tag
-      capCtx.fillStyle = '#ff1e27';
+      // Specimen Number
+      capCtx.fillStyle = '#ffffff';
       capCtx.textAlign = 'left';
-      capCtx.fillText(`[ ${s.id} ]`, CG + 8, y);
+      capCtx.fillText(`NO. ${String(i + 1).padStart(2, '0')} // ${s.style.toUpperCase()}`, CG + 10, y);
 
-      // Name
-      capCtx.fillStyle = '#f4f4f5';
-      capCtx.fillText(s.name.slice(0, 22), CG + 90, y);
-
-      // Arrow
-      capCtx.fillStyle = 'rgba(244, 244, 245, 0.5)';
+      // Master Tag
+      capCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       capCtx.textAlign = 'right';
-      capCtx.fillText('TAP TO OPEN ↗', CG + CWp - 8, y);
+      capCtx.fillText('OPEN ↗', CG + CWp - 10, y);
     }
   };
   drawCaptions();
@@ -342,14 +338,14 @@ export function initPosterWall(stageEl, onSelectSpecimen) {
 
         vec3 texCol = texture2D(uAtlas, px / uAtlasSize).rgb;
 
-        // Red/metallic accent border on hover
+        // Precision hairline border on hover
         float borderDist = min(iu.x, min(1.0 - iu.x, min(iu.y, 1.0 - iu.y)));
-        if (borderDist < 0.015) {
-          texCol = mix(texCol, vec3(1.0, 0.12, 0.15), 0.75 + hov * 0.25);
+        if (borderDist < 0.012) {
+          texCol = mix(texCol, vec3(0.9, 0.9, 0.92), 0.35 + hov * 0.65);
         }
 
-        // Hover brightness boost
-        texCol += vec3(0.12, 0.04, 0.04) * hov;
+        // Refined gallery hover exposure boost
+        texCol += vec3(0.08, 0.08, 0.08) * hov;
 
         col = mix(col, texCol, cov);
       }

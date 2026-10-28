@@ -171,28 +171,28 @@ body {
 }
 
 .btn-primary {
-  background: var(--crimson);
-  color: #fff;
-  border: 1px solid var(--crimson);
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
   font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   padding: 16px 32px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px var(--crimson-glow);
 }
 
 .btn-primary:hover {
-  background: #ff3840;
+  background: var(--crimson);
+  border-color: var(--crimson);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 30, 39, 0.45);
 }
 
 .btn-secondary {
@@ -200,22 +200,23 @@ body {
   color: var(--text-main);
   border: 1px solid var(--border-hairline);
   font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   padding: 16px 28px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
 }
 
 /* 3D Poster Wall Section */
@@ -502,46 +503,95 @@ dialog.specimen-modal::backdrop {
   margin: 0 auto;
 }
 
-.manifest-grid {
+/* European Editorial Manifest Section */
+.manifest-section {
+  padding: 120px 24px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.manifest-editorial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-top: 48px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: flex-start;
 }
 
-.dossier-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-hairline);
-  padding: 36px 28px;
-  position: relative;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+@media (max-width: 900px) {
+  .manifest-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 
-.dossier-card:hover {
-  border-color: var(--border-active);
+.manifest-main-col {
+  position: sticky;
+  top: 90px;
 }
 
-.card-num {
-  font-size: 0.8rem;
-  color: var(--crimson);
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  margin-bottom: 16px;
-}
-
-.card-title {
+.editorial-headline {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 16px 0 24px;
+}
+
+.editorial-sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.manifest-rules-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rule-manifest-entry {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 32px 28px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: all 0.2s;
+}
+
+.rule-manifest-entry:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: var(--bg-card);
+}
+
+.rule-index {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #fff;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+.rule-entry-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  letter-spacing: -0.01em;
   color: #fff;
+  margin-bottom: 10px;
 }
 
-.card-text {
+.rule-entry-text {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 /* 4-Step Booking Funnel Section */
@@ -556,6 +606,24 @@ dialog.specimen-modal::backdrop {
 .booking-container {
   max-width: 840px;
   margin: 0 auto;
+}
+
+.booking-slip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.slip-barcode {
+  letter-spacing: 0.25em;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .selected-badge-wrapper {

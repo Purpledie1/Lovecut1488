@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.js';
 import { sound } from './sound-fx.js';
 
-export const CUT_PHOTOS = Array.from({ length: 31 }, (_, i) => {
+export const CUT_PHOTOS = Array.from({ length: 47 }, (_, i) => {
   const num = String(i + 1).padStart(2, '0');
   return {
     index: i,
@@ -77,11 +77,11 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   // Create Atlas Canvas Texture
   const G = 8;
-  const TH = 580;
+  const TH = 520;
   const TW = Math.round(TH / 1.33);
   const PW = TW + G * 2;
   const PH = TH + G * 2;
-  const ACOLS = 6;
+  const ACOLS = 7;
   const AROWS = Math.ceil(N / ACOLS);
 
   const atlasCanvas = document.createElement('canvas');

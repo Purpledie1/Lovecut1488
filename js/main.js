@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoCloseBtn = document.getElementById('photo-close-btn');
   const photoPrevBtn = document.getElementById('photo-prev-btn');
   const photoNextBtn = document.getElementById('photo-next-btn');
-  const photoSelectBtn = document.getElementById('photo-select-btn');
+
 
   let currentPhotoIndex = 0;
 
@@ -64,6 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         closePhoto();
       }
     });
+    photoDialog.addEventListener('close', () => {
+      document.body.classList.remove('modal-open');
+    });
+    photoDialog.addEventListener('cancel', () => {
+      document.body.classList.remove('modal-open');
+    });
   }
 
   if (photoPrevBtn) {
@@ -79,16 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const nextIdx = (currentPhotoIndex + 1) % CUT_PHOTOS.length;
       renderPhotoInDialog(nextIdx);
-    });
-  }
-
-  if (photoSelectBtn) {
-    photoSelectBtn.addEventListener('click', () => {
-      const item = CUT_PHOTOS[currentPhotoIndex];
-      if (item && window.selectCutForBooking) {
-        window.selectCutForBooking(item);
-      }
-      closePhoto();
     });
   }
 
@@ -125,4 +121,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 6. Initialize Booking Flow
   initBookingFlow();
+
+  // 7. Easter Egg: Svyaz Meme
+  const svyazImg = document.querySelector(".svyaz-easter-img");
+  if (svyazImg) {
+    svyazImg.addEventListener("click", (e) => {
+      e.stopPropagation();
+      svyazImg.classList.toggle("is-zoomed");
+    });
+    document.addEventListener("click", () => {
+      svyazImg.classList.remove("is-zoomed");
+    });
+  }
 });

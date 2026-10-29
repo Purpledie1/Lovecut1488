@@ -4,12 +4,13 @@
   --bg-deep: #0b0b0e;
   --bg-surface: #121217;
   --bg-card: #171720;
-  --border-hairline: rgba(255, 255, 255, 0.1);
+  --border-hairline: rgba(0, 0, 0, 0.15);
   --border-silver: rgba(255, 255, 255, 0.22);
   --border-active: #d32f2f;
   --crimson: #d32f2f;
   --crimson-stamp: rgba(211, 47, 47, 0.95);
-  --yellow-sticker: #f5c518;
+  --blue-sticker: #0055ff;
+  --yellow-sticker: #0055ff;
   --text-main: #f4f4f5;
   --text-muted: #a1a1aa;
   --text-dim: #71717a;
@@ -43,27 +44,105 @@ html {
   overflow-x: hidden;
 }
 
-/* Rich Street Asphalt & Concrete Layered Background */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Authentic Raw Craft Paper Background */
 body {
-  background-color: var(--bg-deep);
+  background-color: #c4a77d;
   background-image: 
-    radial-gradient(circle at 12% 18%, rgba(35, 35, 48, 0.5) 0%, transparent 40%),
-    radial-gradient(circle at 88% 65%, rgba(30, 30, 42, 0.55) 0%, transparent 45%),
-    linear-gradient(180deg, #09090c 0%, #111116 35%, #0e0e13 70%, #08080a 100%);
-  color: var(--text-main);
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 82% 65%, rgba(0, 0, 0, 0.14) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, transparent 35%, rgba(0, 0, 0, 0.12) 100%),
+    url('../assets/kraft-paper.svg');
+  background-repeat: repeat;
+  background-size: auto, auto, auto, 800px 800px;
+  color: #12100d;
   position: relative;
   min-height: 100vh;
 }
 
 /* 1. Custom Dual Magnetic Cursor */
-body.has-custom-cursor {
+body.has-custom-cursor:not(.modal-open) {
   cursor: none;
 }
-body.has-custom-cursor a,
-body.has-custom-cursor button,
-body.has-custom-cursor input,
-body.has-custom-cursor label {
+body.has-custom-cursor:not(.modal-open) a,
+body.has-custom-cursor:not(.modal-open) button,
+body.has-custom-cursor:not(.modal-open) input,
+body.has-custom-cursor:not(.modal-open) label {
   cursor: none !important;
+}
+
+/* Modal Open & Dialog Cursor Restoration (Standard mouse visible in photo zoom & dialogs) */
+body.modal-open,
+body.modal-open *,
+body.has-custom-cursor dialog,
+body.has-custom-cursor dialog *,
+body.has-custom-cursor dialog:modal,
+body.has-custom-cursor dialog:modal *,
+body.has-custom-cursor .photo-zoom-dialog,
+body.has-custom-cursor .photo-zoom-dialog *,
+dialog,
+dialog:modal,
+dialog.photo-zoom-dialog,
+dialog.photo-zoom-dialog * {
+  cursor: default !important;
+}
+
+body.modal-open a,
+body.modal-open button,
+body.has-custom-cursor dialog a,
+body.has-custom-cursor dialog button,
+body.has-custom-cursor dialog [role="button"],
+body.has-custom-cursor dialog [data-cursor],
+body.has-custom-cursor dialog:modal a,
+body.has-custom-cursor dialog:modal button,
+body.has-custom-cursor dialog:modal [data-cursor],
+body.has-custom-cursor .photo-zoom-dialog a,
+body.has-custom-cursor .photo-zoom-dialog button,
+body.has-custom-cursor .photo-close-btn,
+body.has-custom-cursor .photo-nav-pill,
+dialog button,
+dialog:modal button,
+dialog.photo-zoom-dialog button,
+dialog.photo-zoom-dialog .photo-close-btn,
+dialog.photo-zoom-dialog .photo-nav-pill {
+  cursor: pointer !important;
+}
+
+dialog.photo-zoom-dialog img,
+body.has-custom-cursor dialog.photo-zoom-dialog img {
+  cursor: default !important;
+}
+
+dialog::backdrop,
+body.has-custom-cursor dialog::backdrop {
+  cursor: pointer !important;
+}
+
+body.modal-open .custom-cursor,
+body.modal-open .ambient-spotlight,
+body:has(dialog[open]) .custom-cursor,
+body:has(dialog[open]) .ambient-spotlight {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor,
+  .ambient-spotlight {
+    display: none !important;
+  }
+  body.has-custom-cursor,
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor input,
+  body.has-custom-cursor label {
+    cursor: auto !important;
+  }
 }
 
 .custom-cursor {
@@ -181,6 +260,7 @@ body.has-custom-cursor label {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  max-width: 100vw;
   user-select: none;
 }
 
@@ -188,9 +268,9 @@ body.has-custom-cursor label {
   position: absolute;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(6rem, 18vw, 20rem);
+  font-size: clamp(4rem, 16vw, 20rem);
   line-height: 0.8;
-  color: rgba(255, 255, 255, 0.015);
+  color: rgba(0, 0, 0, 0.055);
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: -0.06em;
@@ -203,14 +283,16 @@ body.has-custom-cursor label {
   position: absolute;
   font-family: var(--font-mono);
   font-weight: 900;
-  font-size: clamp(3rem, 10vw, 9rem);
-  color: rgba(255, 255, 255, 0.01);
+  font-size: clamp(2rem, 8vw, 9rem);
+  color: rgba(0, 0, 0, 0.04);
   white-space: nowrap;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.12em;
   transform: rotate(4deg);
   bottom: 22%;
-  right: -4%;
+  right: 0%;
+  max-width: 90vw;
+  overflow: hidden;
 }
 
 /* 2. Top Brutalist Status Bar */
@@ -220,7 +302,7 @@ body.has-custom-cursor label {
   left: 0;
   right: 0;
   height: 50px;
-  background: rgba(11, 11, 14, 0.92);
+  background: rgba(11, 11, 14, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-hairline);
@@ -232,12 +314,22 @@ body.has-custom-cursor label {
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: #ededed;
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
   gap: 14px;
+  color: #ededed;
+}
+
+.top-bar-loc {
+  color: #d4d4d8;
+}
+
+.top-bar-sep {
+  color: #71717a;
 }
 
 .status-dot {
@@ -265,8 +357,8 @@ body.has-custom-cursor label {
 }
 
 .top-bar-link:hover {
-  color: var(--yellow-sticker);
-  border-bottom-color: var(--yellow-sticker);
+  color: var(--blue-sticker);
+  border-bottom-color: var(--blue-sticker);
 }
 
 /* 3. Hero Section (Informal Street Stencil) */
@@ -319,15 +411,34 @@ body.has-custom-cursor label {
   box-shadow: var(--shadow-hard);
 }
 
-.informal-badge-dim {
-  background: rgba(255, 255, 255, 0.06);
+.informal-badge-loc {
+  background: #000000;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 0.8rem;
   padding: 5px 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid #000000;
+  box-shadow: var(--shadow-hard);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: rotate(0.8deg);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.informal-badge-loc:hover {
+  transform: rotate(0deg) translate(-1px, -1px);
+  box-shadow: var(--shadow-hard-lg);
+}
+
+.badge-pin-icon {
+  width: 12px;
+  height: 12px;
+  fill: var(--crimson);
+  flex-shrink: 0;
+  display: inline-block;
 }
 
 .hero-title {
@@ -337,18 +448,19 @@ body.has-custom-cursor label {
   line-height: 0.85;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #110e0b;
   margin: 0 0 28px;
   user-select: none;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4), 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .hero-subtitle {
   max-width: 680px;
   margin: 0 auto 36px;
-  color: var(--text-muted);
+  color: #2b2319;
   font-size: 1.15rem;
   line-height: 1.6;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -384,9 +496,10 @@ body.has-custom-cursor label {
   box-shadow: var(--shadow-hard-lg);
 }
 
-.sticker-yellow {
-  background: var(--yellow-sticker);
-  color: #000000;
+.sticker-yellow,
+.sticker-blue {
+  background: var(--blue-sticker);
+  color: #ffffff;
   border-color: #000000;
   box-shadow: var(--shadow-hard);
 }
@@ -442,8 +555,8 @@ body.has-custom-cursor label {
 }
 
 .btn-primary:hover {
-  background: var(--yellow-sticker);
-  color: #000000;
+  background: var(--blue-sticker);
+  color: #ffffff;
   border-color: #000000;
   box-shadow: var(--shadow-hard-lg);
   transform: translate(-2px, -2px);
@@ -479,10 +592,18 @@ body.has-custom-cursor label {
 
 /* 4. 3D Poster Wall Section */
 .wall-section {
-  padding: 80px 24px 60px;
-  border-bottom: 1px solid var(--border-hairline);
+  padding: 80px 0 60px;
+  border-bottom: 2px solid #000000;
   position: relative;
   z-index: 2;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.wall-section .section-header {
+  max-width: 1440px;
+  margin: 0 auto 36px;
+  padding: 0 24px 24px;
 }
 
 .section-header {
@@ -513,33 +634,43 @@ body.has-custom-cursor label {
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: #110e0b;
 }
 
 .section-desc {
   max-width: 480px;
-  color: var(--text-muted);
+  color: #382e23;
   font-size: 0.95rem;
   line-height: 1.6;
+  font-weight: 500;
 }
 
-/* Interactive Canvas Stage */
+/* Interactive Canvas Stage - Full-Width Panoramic Gallery */
 .pv-stage-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   position: relative;
-  border: 1px solid var(--border-silver);
-  box-shadow: var(--shadow-card);
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  border-left: none;
+  border-right: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
 .pv-stage {
   width: 100%;
-  height: 76vh;
-  min-height: 520px;
+  height: 84vh;
+  min-height: 600px;
   background: #070709;
   position: relative;
   overflow: hidden;
   user-select: none;
+  touch-action: none;
+}
+
+.pv-canvas {
+  touch-action: none;
 }
 
 .pv-controls {
@@ -608,6 +739,39 @@ dialog.photo-zoom-dialog::backdrop {
   align-items: center;
 }
 
+.photo-zoom-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.15s;
+}
+
+.photo-zoom-close:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.photo-zoom-caption {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #ededed;
+  text-align: center;
+}
+
 .photo-zoom-frame img {
   max-width: 82vw;
   max-height: 68vh;
@@ -656,33 +820,6 @@ dialog.photo-zoom-dialog::backdrop {
   color: #ffffff;
 }
 
-.photo-select-btn {
-  background: var(--yellow-sticker);
-  border: 2px solid #000000;
-  color: #000000;
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 800;
-  padding: 10px 22px;
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: all 0.15s;
-  width: 100%;
-  max-width: 340px;
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: var(--shadow-hard);
-}
-
-.photo-select-btn:hover {
-  background: #ffffff;
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-hard-lg);
-}
 
 .photo-close-btn {
   position: absolute;
@@ -743,15 +880,16 @@ dialog.photo-zoom-dialog::backdrop {
   line-height: 1.05;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #110e0b;
   margin: 12px 0 20px;
 }
 
 .editorial-sub {
-  color: var(--text-muted);
+  color: #382e23;
   font-size: 1.15rem;
   line-height: 1.6;
   max-width: 500px;
+  font-weight: 500;
 }
 
 .manifest-rules-col {
@@ -777,6 +915,7 @@ dialog.photo-zoom-dialog::backdrop {
 .informal-card {
   border: 2px solid rgba(255, 255, 255, 0.2);
   background: #111116;
+  color: #ededed;
   box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.9);
 }
 
@@ -844,17 +983,36 @@ dialog.photo-zoom-dialog::backdrop {
   margin: 0 auto;
 }
 
-/* Brutalist Booking Terminal Card */
+/* Brutalist Booking Terminal Card (Courier Parcel Dispatch) */
 .booking-terminal-card,
 .thermal-receipt {
+  --border-hairline: rgba(255, 255, 255, 0.12);
   position: relative;
   background: var(--bg-surface);
   color: #ededed;
   width: 100%;
-  padding: 40px 36px 44px;
-  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.95);
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  padding: 44px 36px 44px;
+  box-shadow: 10px 10px 0px #1a1612, 0 25px 60px rgba(0, 0, 0, 0.4);
+  border: 2px solid #000000;
   font-family: var(--font-body);
+}
+
+.masking-tape-center {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0.8deg);
+  width: 150px;
+  height: 28px;
+  background: rgba(225, 205, 165, 0.85);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  clip-path: polygon(2% 0%, 98% 2%, 100% 96%, 97% 100%, 0% 97%, 3% 4%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.booking-terminal-card .section-title {
+  color: #ffffff;
 }
 
 .terminal-header {
@@ -885,7 +1043,7 @@ dialog.photo-zoom-dialog::backdrop {
   margin: 24px 0;
 }
 
-/* Industrial Terminal Phase Bar */
+/* Industrial Terminal Phase Bar (Clickable tabs) */
 .terminal-phases {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -904,7 +1062,7 @@ dialog.photo-zoom-dialog::backdrop {
 .phase-item {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-hairline);
-  padding: 8px 10px;
+  padding: 10px 12px;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--text-dim);
@@ -913,6 +1071,13 @@ dialog.photo-zoom-dialog::backdrop {
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.phase-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .phase-item.active {
@@ -926,6 +1091,19 @@ dialog.photo-zoom-dialog::backdrop {
 .phase-item.completed {
   border-color: #00e676;
   color: #00e676;
+}
+
+.phase-item.accessible {
+  cursor: pointer;
+}
+
+.step-panel {
+  display: none;
+  position: relative;
+}
+
+.step-panel.active {
+  display: block;
 }
 
 .panel-title {
@@ -983,20 +1161,20 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .custom-checkbox-row input[type="checkbox"]:checked {
-  background: #ffffff;
+  background: #000000;
   border-color: #ffffff;
 }
 
 .custom-checkbox-row input[type="checkbox"]:checked::after {
-  content: '✓';
+  content: '';
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000000;
-  font-size: 14px;
-  font-weight: 900;
+  top: 2px;
+  left: 6px;
+  width: 6px;
+  height: 11px;
+  border: solid #ffffff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(42deg);
 }
 
 .checkbox-text h4 {
@@ -1013,18 +1191,159 @@ dialog.photo-zoom-dialog::backdrop {
   line-height: 1.4;
 }
 
-/* Selected Specimen Badge */
+/* Selected Specimen & Cut Preview Strip */
 .selected-badge-wrapper {
   margin-bottom: 20px;
 }
 
-.selected-badge {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 14px;
-  font-size: 0.8rem;
+.selected-cut-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #09090d;
+  border: 1.5px solid var(--crimson);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+}
+
+.selected-cut-thumb {
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.selected-cut-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.selected-cut-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #8c8375;
   letter-spacing: 0.08em;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+}
+
+.selected-cut-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.btn-remove-cut {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  color: #a1a1aa;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-remove-cut:hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+  background: rgba(211, 47, 47, 0.1);
+}
+
+.rules-status-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #8c8375;
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.08em;
+}
+
+.rules-status-tag.valid {
+  color: #00e676;
+  border-color: #00e676;
+  background: rgba(0, 230, 118, 0.08);
+}
+
+.slot-note {
+  font-size: 0.75rem;
+  color: #8c8375;
+  font-family: var(--font-mono);
+  margin-left: 6px;
+}
+
+/* Dispatch Final Summary on Step 4 */
+.dispatch-summary-box {
+  background: #09090d;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+}
+
+.summary-receipt-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-lbl {
+  color: #8c8375;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.summary-val {
+  color: #ffffff;
+  font-weight: 800;
+  text-align: right;
+}
+
+.text-green {
+  color: #00e676;
+}
+
+.btn-clear-file {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #a1a1aa;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all 0.15s;
+}
+
+.btn-clear-file:hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
 }
 
 .text-crimson {
@@ -1118,9 +1437,9 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .time-slot-btn.selected {
-  background: var(--yellow-sticker);
-  border-color: var(--yellow-sticker);
-  color: #000000;
+  background: var(--blue-sticker);
+  border-color: var(--blue-sticker);
+  color: #ffffff;
   box-shadow: 3px 3px 0px #000000;
 }
 
@@ -1266,10 +1585,6 @@ dialog.photo-zoom-dialog::backdrop {
   text-decoration: none;
   margin-top: 10px;
 }
-  box-shadow: var(--shadow-hard);
-  text-decoration: none;
-  margin-top: 10px;
-}
 
 .btn-tiktok:hover {
   background: #ffffff;
@@ -1281,11 +1596,12 @@ dialog.photo-zoom-dialog::backdrop {
 /* 8. Monumental Footer */
 .site-footer {
   padding: 80px 24px 48px;
-  border-top: 1px solid var(--border-hairline);
+  border-top: 2px solid #000000;
   background: #07070a;
   font-size: 0.85rem;
   position: relative;
   z-index: 2;
+  color: #ededed;
 }
 
 .footer-inner {
@@ -1294,6 +1610,7 @@ dialog.photo-zoom-dialog::backdrop {
   display: grid;
   grid-template-columns: 1.2fr 2fr;
   gap: 60px;
+  color: #ededed;
 }
 
 @media (max-width: 800px) {
@@ -1308,7 +1625,7 @@ dialog.photo-zoom-dialog::backdrop {
   font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: #ffffff;
   margin-bottom: 12px;
 }
 
@@ -1319,11 +1636,46 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .footer-col h5 {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   letter-spacing: 0.15em;
-  color: var(--text-dim);
+  color: #ffffff;
+  font-weight: 800;
   text-transform: uppercase;
   margin-bottom: 14px;
+}
+
+.footer-heading-svyaz {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.svyaz-easter-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.svyaz-easter-img {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 2px 2px 0px #000000;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s, border-color 0.2s;
+  transform-origin: left center;
+  user-select: none;
+}
+
+.svyaz-easter-img:hover,
+.svyaz-easter-img.is-zoomed {
+  transform: scale(4.8) translateY(-10px) rotate(-4deg);
+  border-color: var(--blue-sticker);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95), 0 0 18px rgba(0, 85, 255, 0.6);
+  z-index: 999;
+  position: relative;
 }
 
 .footer-col ul {
@@ -1332,27 +1684,444 @@ dialog.photo-zoom-dialog::backdrop {
 
 .footer-col li {
   margin-bottom: 8px;
+  color: #a1a1aa;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .footer-col a {
-  color: var(--text-muted);
+  color: #a1a1aa;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-col a:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .footer-bottom {
   max-width: 1400px;
   margin: 60px auto 0;
   padding-top: 24px;
-  border-top: 1px solid var(--border-hairline);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   justify-content: space-between;
-  color: var(--text-dim);
+  color: #a1a1aa;
   font-size: 0.75rem;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+/* ==========================================================================
+   9. Mobile Responsive Layout & Touch Optimization (Phone Viewports)
+   ========================================================================== */
+
+/* Universal text helpers for responsive button/link text */
+.link-short,
+.btn-text-short {
+  display: none;
+}
+
+.step-nav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.step-4-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-hairline);
+  padding-top: 18px;
+}
+
+/* Tablet & Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  /* Top Bar */
+  .top-bar {
+    height: 44px;
+    padding: 0 14px;
+    font-size: 0.7rem;
+  }
+  .top-bar-left {
+    gap: 8px;
+  }
+  .top-bar-loc,
+  .top-bar-sep {
+    display: none;
+  }
+  .top-bar-right {
+    gap: 10px;
+  }
+  .top-bar-link {
+    font-size: 0.68rem;
+    padding: 2px 4px;
+  }
+  .link-full {
+    display: none;
+  }
+  .link-short {
+    display: inline;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 68px 16px 40px;
+    min-height: auto;
+  }
+  .hero-stickers-cluster {
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .hero-badge-row {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .informal-badge,
+  .informal-badge-loc {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+  }
+  .hero-title {
+    font-size: clamp(3.2rem, 14vw, 5.8rem);
+    letter-spacing: -0.04em;
+    margin: 0 0 16px;
+    line-height: 0.9;
+  }
+  .hero-subtitle {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin: 0 auto 22px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    min-height: 52px;
+    font-size: 0.92rem;
+  }
+
+  /* 3D Wall Section */
+  .wall-section {
+    padding: 50px 0 36px;
+  }
+  .wall-section .section-header {
+    padding: 0 14px 18px;
+    margin-bottom: 20px;
+  }
+  .section-header {
+    margin-bottom: 20px;
+  }
+  .section-tag {
+    font-size: 0.72rem;
+  }
+  .section-title {
+    font-size: 2.2rem;
+  }
+  .section-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .pv-stage {
+    height: 56vh;
+    min-height: 360px;
+  }
+  .pv-controls {
+    bottom: 10px;
+    right: 10px;
+    gap: 6px;
+  }
+  .pv-hint-pill {
+    display: none;
+  }
+  .ctrl-btn {
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Photo Zoom Dialog */
+  dialog.photo-zoom-dialog {
+    width: 95vw;
+    max-width: 95vw;
+    max-height: 94vh;
+    margin: auto;
+  }
+  .photo-zoom-frame {
+    padding: 14px 10px;
+  }
+  .photo-zoom-frame img {
+    max-width: 88vw;
+    max-height: 50vh;
+  }
+  .photo-close-btn {
+    width: 40px;
+    height: 40px;
+    top: 8px;
+    right: 8px;
+    font-size: 1.3rem;
+  }
+  .photo-zoom-controls {
+    gap: 8px;
+    width: 100%;
+    margin-top: 14px;
+  }
+  .photo-nav-pill {
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
+  .btn-text-full {
+    display: none;
+  }
+  .btn-text-short {
+    display: inline;
+  }
+  .photo-counter-tag {
+    font-size: 0.8rem;
+  }
+
+  /* Manifest Section (Rules) */
+  .manifest-section {
+    padding: 50px 14px;
+  }
+  .manifest-main-col {
+    position: static;
+    top: auto;
+  }
+  .editorial-headline {
+    font-size: 2.1rem;
+    margin: 8px 0 12px;
+  }
+  .editorial-sub {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .manifest-rules-col {
+    gap: 16px;
+  }
+  .tilt-card {
+    padding: 22px 16px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+  }
+  .informal-card {
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+  }
+  .rule-index {
+    font-size: 2rem;
+  }
+  .rule-card-title {
+    font-size: 1.2rem;
+  }
+  .rule-entry-text {
+    font-size: 0.85rem;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 50px 16px 36px;
+  }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .footer-logo {
+    font-size: 1.8rem;
+  }
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .footer-col li {
+    color: var(--text-muted);
+  }
+  .footer-bottom {
+    margin-top: 36px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+}
+
+/* Small Smart Phone Screens (<= 600px) */
+@media (max-width: 600px) {
+  /* Booking Section */
+  .booking-section {
+    padding: 50px 10px;
+  }
+  .booking-container {
+    padding: 0 4px;
+  }
+  .booking-terminal-card,
+  .thermal-receipt {
+    padding: 26px 14px 22px;
+    box-shadow: 5px 5px 0px #1a1612;
+    border-width: 1.5px;
+  }
+  .masking-tape-center {
+    width: 110px;
+    height: 20px;
+    top: -10px;
+  }
+  .terminal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .booking-terminal-card .section-title {
+    font-size: 1.35rem;
+  }
+  .terminal-tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+  .terminal-phases {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+  .phase-item {
+    padding: 8px 6px;
+    font-size: 0.65rem;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .phase-num {
+    font-size: 0.72rem;
+  }
+  .panel-title {
+    font-size: 1.18rem;
+  }
+  .panel-desc {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+  .rules-list {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .custom-checkbox-row {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+  .checkbox-text h4 {
+    font-size: 0.82rem;
+  }
+  .checkbox-text p {
+    font-size: 0.75rem;
+  }
+  .selected-cut-strip {
+    padding: 10px 12px;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .selected-cut-thumb {
+    width: 44px;
+    height: 44px;
+  }
+  .selected-cut-title {
+    font-size: 1rem;
+  }
+  .btn-remove-cut {
+    padding: 6px 8px;
+    font-size: 0.68rem;
+  }
+  .calendar-days-scroll {
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+  }
+  .calendar-day-btn {
+    min-width: 76px;
+    padding: 8px 6px;
+  }
+  .day-btn-dow {
+    font-size: 0.65rem;
+  }
+  .day-btn-date {
+    font-size: 0.8rem;
+  }
+  .time-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .time-slot-btn {
+    padding: 12px 4px;
+    font-size: 0.88rem;
+    min-height: 44px;
+  }
+  .slot-selection-summary {
+    padding: 12px;
+    margin-bottom: 18px;
+  }
+  .step-nav-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+    width: 100%;
+  }
+  .step-nav-actions .btn-primary,
+  .step-nav-actions .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    font-size: 0.84rem;
+    padding: 12px 14px;
+  }
+  .requisites-box {
+    padding: 14px;
+    margin-bottom: 18px;
+  }
+  .req-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px 0;
+  }
+  .req-row > div:last-child {
+    text-align: left;
+  }
+  .copy-pill-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
+  .receipt-dropzone {
+    padding: 22px 12px;
+    margin-bottom: 18px;
+  }
+  .receipt-dropzone h4 {
+    font-size: 0.82rem;
+  }
+  .btn-telegram {
+    padding: 14px 12px;
+    font-size: 0.8rem;
+    min-height: 48px;
+  }
+  .btn-tiktok {
+    padding: 12px 12px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
+  .step-4-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    text-align: center;
+    padding-top: 14px;
+  }
+  .step-4-footer .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
 }

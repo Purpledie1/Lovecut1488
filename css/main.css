@@ -9,8 +9,9 @@
   --border-active: #d32f2f;
   --crimson: #d32f2f;
   --crimson-stamp: rgba(211, 47, 47, 0.95);
-  --blue-sticker: #0055ff;
-  --yellow-sticker: #0055ff;
+  --red-sticker: #d32f2f;
+  --blue-sticker: #d32f2f;
+  --yellow-sticker: #d32f2f;
   --text-main: #f4f4f5;
   --text-muted: #a1a1aa;
   --text-dim: #71717a;
@@ -357,8 +358,8 @@ body:has(dialog[open]) .ambient-spotlight {
 }
 
 .top-bar-link:hover {
-  color: var(--blue-sticker);
-  border-bottom-color: var(--blue-sticker);
+  color: var(--crimson);
+  border-bottom-color: var(--crimson);
 }
 
 /* 3. Hero Section (Informal Street Stencil) */
@@ -497,17 +498,11 @@ body:has(dialog[open]) .ambient-spotlight {
 }
 
 .sticker-yellow,
-.sticker-blue {
-  background: var(--blue-sticker);
-  color: #ffffff;
-  border-color: #000000;
-  box-shadow: var(--shadow-hard);
-}
-
+.sticker-blue,
 .sticker-red {
   background: var(--crimson);
   color: #ffffff;
-  border-color: #ffffff;
+  border-color: #000000;
   box-shadow: var(--shadow-hard);
 }
 
@@ -555,7 +550,7 @@ body:has(dialog[open]) .ambient-spotlight {
 }
 
 .btn-primary:hover {
-  background: var(--blue-sticker);
+  background: var(--crimson);
   color: #ffffff;
   border-color: #000000;
   box-shadow: var(--shadow-hard-lg);
@@ -1437,8 +1432,8 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .time-slot-btn.selected {
-  background: var(--blue-sticker);
-  border-color: var(--blue-sticker);
+  background: var(--crimson);
+  border-color: var(--crimson);
   color: #ffffff;
   box-shadow: 3px 3px 0px #000000;
 }
@@ -1672,8 +1667,8 @@ dialog.photo-zoom-dialog::backdrop {
 .svyaz-easter-img:hover,
 .svyaz-easter-img.is-zoomed {
   transform: scale(4.8) translateY(-10px) rotate(-4deg);
-  border-color: var(--blue-sticker);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95), 0 0 18px rgba(0, 85, 255, 0.6);
+  border-color: var(--crimson);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95), 0 0 18px rgba(211, 47, 47, 0.6);
   z-index: 999;
   position: relative;
 }

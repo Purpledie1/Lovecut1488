@@ -1734,41 +1734,11 @@ dialog.photo-zoom-dialog::backdrop {
 
 /* Tablet & Mobile Screens (<= 768px) */
 @media (max-width: 768px) {
-  /* Mobile Performance: Disable GPU-heavy SVG procedural noise and blur */
-  .grain-overlay {
-    display: none !important;
-  }
-
-  /* Mobile Performance: Streamline kraft paper background fill */
-  body {
-    background-image: 
-      linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.08) 100%),
-      url('../assets/kraft-paper.svg');
-    background-size: auto, 400px 400px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Mobile Performance: Street watermark layer isolation */
-  .street-watermark-bg {
-    contain: strict;
-    transform: translateZ(0);
-  }
-
-  /* Mobile Performance: Disable card tilt 3D perspective to preserve frame rate */
-  .tilt-card {
-    will-change: auto !important;
-    transform: none !important;
-    perspective: none !important;
-  }
-
   /* Top Bar */
   .top-bar {
     height: 44px;
     padding: 0 14px;
     font-size: 0.7rem;
-    background: #0b0b0e;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
   .top-bar-left {
     gap: 8px;
@@ -1858,10 +1828,10 @@ dialog.photo-zoom-dialog::backdrop {
     height: 48vh;
     min-height: 320px;
     max-height: 420px;
-    touch-action: pan-y pinch-zoom !important;
+    touch-action: none !important;
   }
   .pv-canvas {
-    touch-action: pan-y pinch-zoom !important;
+    touch-action: none !important;
   }
   .pv-controls {
     bottom: 10px;
@@ -1885,11 +1855,7 @@ dialog.photo-zoom-dialog::backdrop {
     max-height: 94vh;
     margin: auto;
   }
-  dialog.photo-zoom-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.94);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
+
   .photo-zoom-frame {
     padding: 14px 10px;
   }

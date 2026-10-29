@@ -32,11 +32,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     alpha: false,
     powerPreference: 'high-performance'
   });
-  const getOptimalDpr = () => {
-    const dpr = window.devicePixelRatio || 1;
-    return isMobile() ? Math.min(dpr, 1.25) : Math.min(dpr, 1.75);
-  };
-  renderer.setPixelRatio(getOptimalDpr());
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.setClearColor(0x070709, 1);
   renderer.domElement.className = 'pv-canvas';
@@ -108,9 +104,8 @@ export function initPosterWall(stageEl, onSelectPhoto) {
   atlasTex.colorSpace = THREE.SRGBColorSpace;
   atlasTex.flipY = false;
   atlasTex.anisotropy = aniso;
-  atlasTex.minFilter = THREE.LinearFilter;
-  atlasTex.magFilter = THREE.LinearFilter;
-  atlasTex.generateMipmaps = false;
+  atlasTex.minFilter = THREE.LinearMipmapLinearFilter;
+  atlasTex.generateMipmaps = true;
 
   const putPoster = (im, i) => {
     if (!im) return;
@@ -170,10 +165,9 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   const capTex = new THREE.CanvasTexture(capCanvas);
   capTex.flipY = false;
-  capTex.anisotropy = 1;
-  capTex.minFilter = THREE.LinearFilter;
-  capTex.magFilter = THREE.LinearFilter;
-  capTex.generateMipmaps = false;
+  capTex.anisotropy = aniso;
+  capTex.minFilter = THREE.LinearMipmapLinearFilter;
+  capTex.generateMipmaps = true;
 
   // Shader Uniforms
   const uniforms = {
@@ -345,9 +339,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
       pointerType: e.pointerType
     };
     vel.set(0, 0);
-    if (e.pointerType !== 'touch') {
-      el.setPointerCapture?.(e.pointerId);
-    }
+    el.setPointerCapture?.(e.pointerId);
     el.style.cursor = 'grabbing';
     if (!reduce()) scaleTarget = baseScale() * 1.08;
     if (!isLoopRunning && shouldRender()) startLoop();
@@ -363,7 +355,14 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
       offTarget.x -= dx;
       offTarget.y -= dy;
-      vel.set(-dx / dt * 16, -dy / dt * 16);
+      off.x = offTarget.x;
+      off.y = offTarget.y;
+
+      const instVx = -dx / dt * 16;
+      const instVy = -dy / dt * 16;
+      vel.x = vel.x * 0.4 + instVx * 0.6;
+      vel.y = vel.y * 0.4 + instVy * 0.6;
+
       drag.x = e.clientX;
       drag.y = e.clientY;
       drag.t = now;
@@ -420,7 +419,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     const w = stageEl.clientWidth || window.innerWidth;
     const h = stageEl.clientHeight || window.innerHeight;
     if (!w || !h) return;
-    const dpr = getOptimalDpr();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
     uniforms.uRes.value.set(w * dpr, h * dpr);
@@ -462,8 +461,10 @@ export function initPosterWall(stageEl, onSelectPhoto) {
       }
     }
 
-    off.x += (offTarget.x - off.x) * 0.15 * dt;
-    off.y += (offTarget.y - off.y) * 0.15 * dt;
+    if (!drag) {
+      off.x += (offTarget.x - off.x) * 0.2 * dt;
+      off.y += (offTarget.y - off.y) * 0.2 * dt;
+    }
     scale += (scaleTarget - scale) * 0.12 * dt;
     uniforms.uScale.value = scale;
 

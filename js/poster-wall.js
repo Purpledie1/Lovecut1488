@@ -32,7 +32,11 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     alpha: false,
     powerPreference: 'high-performance'
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const getOptimalDpr = () => {
+    const dpr = window.devicePixelRatio || 1;
+    return isMobile() ? Math.min(dpr, 1.25) : Math.min(dpr, 1.75);
+  };
+  renderer.setPixelRatio(getOptimalDpr());
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.setClearColor(0x070709, 1);
   renderer.domElement.className = 'pv-canvas';
@@ -44,7 +48,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 4);
+  const aniso = isMobile() ? 1 : Math.min(4, renderer.capabilities.getMaxAnisotropy?.() || 2);
 
   // Cell layout in world units
   const PAD = 0.08;
@@ -104,8 +108,9 @@ export function initPosterWall(stageEl, onSelectPhoto) {
   atlasTex.colorSpace = THREE.SRGBColorSpace;
   atlasTex.flipY = false;
   atlasTex.anisotropy = aniso;
-  atlasTex.minFilter = THREE.LinearMipmapLinearFilter;
-  atlasTex.generateMipmaps = true;
+  atlasTex.minFilter = THREE.LinearFilter;
+  atlasTex.magFilter = THREE.LinearFilter;
+  atlasTex.generateMipmaps = false;
 
   const putPoster = (im, i) => {
     if (!im) return;
@@ -165,8 +170,10 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   const capTex = new THREE.CanvasTexture(capCanvas);
   capTex.flipY = false;
-  capTex.anisotropy = aniso;
-  capTex.minFilter = THREE.LinearMipmapLinearFilter;
+  capTex.anisotropy = 1;
+  capTex.minFilter = THREE.LinearFilter;
+  capTex.magFilter = THREE.LinearFilter;
+  capTex.generateMipmaps = false;
 
   // Shader Uniforms
   const uniforms = {
@@ -329,11 +336,21 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   // Pointer & Drag handling
   el.addEventListener('pointerdown', e => {
-    drag = { x: e.clientX, y: e.clientY, t: performance.now(), startX: e.clientX, startY: e.clientY };
+    drag = {
+      x: e.clientX,
+      y: e.clientY,
+      t: performance.now(),
+      startX: e.clientX,
+      startY: e.clientY,
+      pointerType: e.pointerType
+    };
     vel.set(0, 0);
-    el.setPointerCapture?.(e.pointerId);
+    if (e.pointerType !== 'touch') {
+      el.setPointerCapture?.(e.pointerId);
+    }
     el.style.cursor = 'grabbing';
     if (!reduce()) scaleTarget = baseScale() * 1.08;
+    if (!isLoopRunning && shouldRender()) startLoop();
   });
 
   el.addEventListener('pointermove', e => {
@@ -371,7 +388,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     const duration = performance.now() - drag.t;
 
     // Clean Tap detected -> Open pure photo zoom!
-    if (dist < 8 && duration < 600) {
+    if (dist < 10 && duration < 500) {
       const h = cellAt(e.clientX, e.clientY);
       if (h.onImg && onSelectPhoto) {
         onSelectPhoto(h.idx, CUT_PHOTOS[h.idx]);
@@ -403,18 +420,32 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     const w = stageEl.clientWidth || window.innerWidth;
     const h = stageEl.clientHeight || window.innerHeight;
     if (!w || !h) return;
+    const dpr = getOptimalDpr();
+    renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
-    uniforms.uRes.value.set(w * renderer.getPixelRatio(), h * renderer.getPixelRatio());
+    uniforms.uRes.value.set(w * dpr, h * dpr);
+    scale = baseScale();
+    scaleTarget = scale;
   };
   const ro = new ResizeObserver(resize);
   ro.observe(stageEl);
   resize();
 
-  // Animation Loop
+  // Animation Loop with Viewport Visibility & Intersection Observer Optimization
   let rafId = 0;
   let lastTime = performance.now();
+  let isIntersecting = true;
+  let isLoopRunning = false;
+  let isDocHidden = document.hidden;
+  let isPausedManually = false;
+
+  const shouldRender = () => isIntersecting && !isDocHidden && !isPausedManually;
 
   const animate = now => {
+    if (!shouldRender()) {
+      isLoopRunning = false;
+      return;
+    }
     rafId = requestAnimationFrame(animate);
     const dt = Math.min(32, now - lastTime) / 16;
     lastTime = now;
@@ -440,11 +471,66 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
     renderer.render(scene, camera);
   };
-  rafId = requestAnimationFrame(animate);
+
+  const startLoop = () => {
+    if (isLoopRunning) return;
+    if (!shouldRender()) return;
+    isLoopRunning = true;
+    lastTime = performance.now();
+    rafId = requestAnimationFrame(animate);
+  };
+
+  const stopLoop = () => {
+    if (!isLoopRunning) return;
+    isLoopRunning = false;
+    cancelAnimationFrame(rafId);
+  };
+
+  // IntersectionObserver to pause WebGL when scrolled off-screen
+  let io = null;
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(
+      entries => {
+        const entry = entries[0];
+        isIntersecting = entry.isIntersecting;
+        if (shouldRender()) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.02 }
+    );
+    io.observe(stageEl);
+  }
+
+  const onVisChange = () => {
+    isDocHidden = document.hidden;
+    if (shouldRender()) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  };
+  document.addEventListener('visibilitychange', onVisChange);
+
+  startLoop();
 
   return {
+    isRunning: () => isLoopRunning,
+    isIntersecting: () => isIntersecting,
+    pause: () => {
+      isPausedManually = true;
+      stopLoop();
+    },
+    resume: () => {
+      isPausedManually = false;
+      if (shouldRender()) startLoop();
+    },
     destroy: () => {
-      cancelAnimationFrame(rafId);
+      stopLoop();
+      if (io) io.disconnect();
+      document.removeEventListener('visibilitychange', onVisChange);
       ro.disconnect();
       mat.dispose();
       quad.geometry.dispose();
@@ -456,14 +542,17 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     },
     zoomIn: () => {
       scaleTarget = Math.max(1.2, scaleTarget * 0.85);
+      if (!isLoopRunning && shouldRender()) startLoop();
     },
     zoomOut: () => {
       scaleTarget = Math.min(3.8, scaleTarget * 1.18);
+      if (!isLoopRunning && shouldRender()) startLoop();
     },
     resetPos: () => {
       offTarget.set(0.5, 0.2);
       scaleTarget = baseScale();
       vel.set(0, 0);
+      if (!isLoopRunning && shouldRender()) startLoop();
     }
   };
 }

@@ -1,7 +1,7 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=7';
-import { initBookingFlow } from './booking.js?v=7';
-import { MagneticCursor } from './cursor.js?v=7';
-import { initMagneticButtons, init3DCardTilt } from './motion.js?v=7';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=10';
+import { initBookingFlow } from './booking.js?v=10';
+import { MagneticCursor } from './cursor.js?v=10';
+import { initMagneticButtons, init3DCardTilt } from './motion.js?v=10';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize High-End Custom Magnetic Cursor & Spotlight
@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Initialize 3D Card Tilt with Specular Glare Tracking
   init3DCardTilt();
 
+  // Poster wall instance reference for performance pause/resume
+  let wallInstance = null;
+
   // 4. Pure Photo Zoom Dialog
   const photoDialog = document.getElementById('photo-dialog');
   const photoImg = document.getElementById('photo-zoom-img');
@@ -24,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoCloseBtn = document.getElementById('photo-close-btn');
   const photoPrevBtn = document.getElementById('photo-prev-btn');
   const photoNextBtn = document.getElementById('photo-next-btn');
-
 
   let currentPhotoIndex = 0;
 
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (photoDialog) {
       photoDialog.showModal();
       document.body.classList.add('modal-open');
+      wallInstance?.pause();
     }
   }
 
@@ -53,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (photoDialog) {
       photoDialog.close();
       document.body.classList.remove('modal-open');
+      wallInstance?.resume();
     }
   }
 
@@ -66,9 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     photoDialog.addEventListener('close', () => {
       document.body.classList.remove('modal-open');
+      wallInstance?.resume();
     });
     photoDialog.addEventListener('cancel', () => {
       document.body.classList.remove('modal-open');
+      wallInstance?.resume();
     });
   }
 
@@ -104,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Initialize 3D Wall
   const stage = document.getElementById('pv-stage');
-  let wallInstance = null;
   if (stage) {
     wallInstance = initPosterWall(stage, (idx) => {
       openPhoto(idx);
     });
+    window.wallInstance = wallInstance;
 
     const zoomInBtn = document.getElementById('wall-zoom-in');
     const zoomOutBtn = document.getElementById('wall-zoom-out');

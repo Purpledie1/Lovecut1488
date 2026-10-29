@@ -217,30 +217,6 @@ body.has-custom-cursor label {
   gap: 20px;
 }
 
-.sound-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-hairline);
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 5px 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-}
-
-.sound-btn.active {
-  border-color: #00e676;
-  color: #fff;
-  box-shadow: 0 0 12px rgba(0, 230, 118, 0.25);
-}
-
-.sound-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.3);
-}
 
 /* 3. Hero Section (Monumental Street Stencil) */
 .hero-section {
@@ -546,7 +522,35 @@ dialog.photo-zoom-dialog::backdrop {
   margin-top: 20px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.photo-select-btn {
+  background: var(--crimson);
+  border: 1px solid var(--crimson);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 10px 22px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.photo-select-btn:hover {
+  background: #ff333c;
+  box-shadow: 0 0 20px var(--crimson-glow);
 }
 
 .photo-nav-pill {
@@ -750,50 +754,41 @@ dialog.photo-zoom-dialog::backdrop {
   margin: 0 auto;
 }
 
-/* Thermal Receipt Docket */
+/* Brutalist Booking Terminal Card */
+.booking-terminal-card,
 .thermal-receipt {
   position: relative;
-  background: var(--bg-receipt);
+  background: var(--bg-surface);
   color: #ededed;
   width: 100%;
-  padding: 44px 36px 48px;
-  box-shadow: var(--shadow-receipt);
-  border-left: 1px solid var(--border-silver);
-  border-right: 1px solid var(--border-silver);
-  font-family: var(--font-mono);
-  /* Top and bottom serrated cut edges */
-  mask-image: radial-gradient(circle 6px at 12px 0, transparent 0, transparent 6px, black 6.5px),
-              radial-gradient(circle 6px at 12px 100%, transparent 0, transparent 6px, black 6.5px);
-  mask-size: 24px 100%;
-  mask-repeat: repeat-x;
-  transform: rotate(-0.35deg);
-  transition: transform 0.3s var(--ease-out-expo);
-}
-
-.thermal-receipt:hover {
-  transform: rotate(0deg) scale(1.005);
-}
-
-/* Perforation Tear Line */
-.receipt-perforation {
-  position: relative;
-  border-bottom: 2px dashed rgba(255, 255, 255, 0.18);
-  margin: 28px -36px;
-}
-
-.receipt-perforation::before,
-.receipt-perforation::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  width: 20px;
-  height: 20px;
-  background: #060608;
-  border-radius: 50%;
+  padding: 40px 36px 44px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
   border: 1px solid var(--border-silver);
+  font-family: var(--font-mono);
 }
-.receipt-perforation::before { left: -10px; }
-.receipt-perforation::after { right: -10px; }
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-hairline);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.terminal-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--crimson);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.terminal-divider,
+.receipt-perforation {
+  border-bottom: 1px solid var(--border-hairline);
+  margin: 24px 0;
+}
 
 /* Industrial Terminal Phase Bar (Replacing circular steps) */
 .terminal-phases {

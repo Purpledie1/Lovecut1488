@@ -1,4 +1,4 @@
-import { triggerRazorSlice, triggerRubberStamp } from './motion.js';
+import { triggerRubberStamp } from './motion.js';
 
 export function initBookingFlow() {
   const stepIndicators = document.querySelectorAll('.step-indicator-item, .phase-item');
@@ -28,16 +28,16 @@ export function initBookingFlow() {
   const tgSendBtn = document.getElementById('tg-send-btn');
 
   let currentStep = 1;
-  let selectedSpecimen = null;
+  let selectedCut = null;
   let selectedDate = null;
   let selectedTimeSlot = '';
 
-  // Expose specimen selector to window so modal can trigger it
-  window.selectSpecimenForBooking = (specimen) => {
-    selectedSpecimen = specimen;
-    const badge = document.getElementById('selected-specimen-badge');
+  // Expose cut selector so 3D wall or photo modal can trigger it
+  window.selectCutForBooking = (cut) => {
+    selectedCut = cut;
+    const badge = document.getElementById('selected-cut-badge');
     if (badge) {
-      badge.innerHTML = `ВЫБРАН СТИЛЬ: <span class="text-crimson font-bold">[${specimen.id}] ${specimen.name}</span>`;
+      badge.innerHTML = `ВЫБРАНА СТРИЖКА: <span class="text-crimson font-bold">РАБОТА ${cut.id || cut}</span>`;
       badge.style.display = 'inline-block';
     }
     const bookingSec = document.getElementById('booking-section');
@@ -46,13 +46,11 @@ export function initBookingFlow() {
     }
   };
 
+  // Backwards compatibility alias
+  window.selectSpecimenForBooking = window.selectCutForBooking;
+
   function updateStepsUI(step) {
     currentStep = step;
-
-    const activePanel = document.querySelector(`.step-panel[data-step="${step}"]`);
-    if (activePanel) {
-      triggerRazorSlice(activePanel);
-    }
 
     stepPanels.forEach(panel => {
       panel.classList.remove('active');
@@ -73,12 +71,12 @@ export function initBookingFlow() {
       progressBar.style.width = `${pct}%`;
     }
 
-    // Slam rubber stamp on receipt docket on deposit & slip stages
+    // Stamp receipt on deposit step
     if (step >= 3) {
-      const docket = document.getElementById('thermal-receipt-docket');
-      if (docket) {
+      const bookingBox = document.getElementById('booking-terminal-box');
+      if (bookingBox) {
         const text = step === 3 ? 'ЗАЛОГ 200 ₽ • СТРОГО :00' : 'ЧЕК ПРИНЯТ • В TELEGRAM';
-        triggerRubberStamp(docket, text);
+        triggerRubberStamp(bookingBox, text);
       }
     }
   }
@@ -275,13 +273,13 @@ export function initBookingFlow() {
   // Open Telegram with auto-generated text
   if (tgSendBtn) {
     tgSendBtn.addEventListener('click', () => {
-      const styleText = selectedSpecimen ? `• Стиль: [${selectedSpecimen.id}] ${selectedSpecimen.name}` : '• Стрижка: индивидуальный выбор';
+      const cutText = selectedCut ? (selectedCut.id ? `• Выбранная стрижка: Работа [${selectedCut.id}]` : `• Выбранная стрижка: ${selectedCut}`) : '• Стрижка: выбор на месте';
       const slotText = selectedDate && selectedTimeSlot ? `• Дата и время: ${selectedDate.fullLabel}, в ${selectedTimeSlot} (строго :00)` : '• Время: начало часа :00';
 
       const msg = encodeURIComponent(
         `Привет, Андрей! Записываюсь через сайт LOVECUT.\n` +
         `${slotText}\n` +
-        `${styleText}\n` +
+        `${cutText}\n` +
         `• Залог 200 ₽ на Т-Банк перевел.\n` +
         `• Остаток подготовлю наличными 🩸.\n\n` +
         `Прикрепляю скриншот чека:`

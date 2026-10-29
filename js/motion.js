@@ -5,7 +5,7 @@ export function initMagneticButtons() {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   const bindButtons = () => {
-    document.querySelectorAll('.btn-primary, .btn-secondary, .ctrl-btn, .sound-btn, .copy-pill-btn').forEach(btn => {
+    document.querySelectorAll('.btn-primary, .btn-secondary, .ctrl-btn, .copy-pill-btn').forEach(btn => {
       if (btn._magneticBound) return;
       btn._magneticBound = true;
 
@@ -78,14 +78,14 @@ export function init3DCardTilt() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = -((y - centerY) / centerY) * 7.5;
-      const rotateY = ((x - centerX) / centerX) * 7.5;
+      const rotateX = -((y - centerY) / centerY) * 6;
+      const rotateY = ((x - centerX) / centerX) * 6;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.01, 1.01, 1.01)`;
 
       const glareX = (x / rect.width) * 100;
       const glareY = (y / rect.height) * 100;
-      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.14) 0%, transparent 60%)`;
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.12) 0%, transparent 60%)`;
     });
 
     card.addEventListener('mouseleave', () => {
@@ -98,22 +98,7 @@ export function init3DCardTilt() {
   });
 }
 
-// 3. Razor Slice & Screen Recoil
-export function triggerRazorSlice(targetEl) {
-  if (targetEl) {
-    targetEl.classList.remove('is-slicing');
-    void targetEl.offsetWidth; // force reflow
-    targetEl.classList.add('is-slicing');
-    setTimeout(() => targetEl.classList.remove('is-slicing'), 240);
-  }
-
-  document.body.classList.remove('shake-recoil');
-  void document.body.offsetWidth;
-  document.body.classList.add('shake-recoil');
-  setTimeout(() => document.body.classList.remove('shake-recoil'), 150);
-}
-
-// 4. Rubber Ink Stamp Slam
+// 3. Rubber Ink Stamp Slam (for deposit confirmation)
 export function triggerRubberStamp(containerEl, stampText = 'ЗАЛОГ 200 ₽ ПРИНЯТ') {
   if (!containerEl) return;
 

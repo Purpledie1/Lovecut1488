@@ -1,7 +1,7 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=6';
-import { initBookingFlow } from './booking.js?v=6';
-import { MagneticCursor } from './cursor.js?v=6';
-import { initMagneticButtons, init3DCardTilt } from './motion.js?v=6';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=7';
+import { initBookingFlow } from './booking.js?v=7';
+import { MagneticCursor } from './cursor.js?v=7';
+import { initMagneticButtons, init3DCardTilt } from './motion.js?v=7';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize High-End Custom Magnetic Cursor & Spotlight
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoCloseBtn = document.getElementById('photo-close-btn');
   const photoPrevBtn = document.getElementById('photo-prev-btn');
   const photoNextBtn = document.getElementById('photo-next-btn');
+  const photoSelectBtn = document.getElementById('photo-select-btn');
 
   let currentPhotoIndex = 0;
 
@@ -78,6 +79,16 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const nextIdx = (currentPhotoIndex + 1) % CUT_PHOTOS.length;
       renderPhotoInDialog(nextIdx);
+    });
+  }
+
+  if (photoSelectBtn) {
+    photoSelectBtn.addEventListener('click', () => {
+      const item = CUT_PHOTOS[currentPhotoIndex];
+      if (item && window.selectCutForBooking) {
+        window.selectCutForBooking(item);
+      }
+      closePhoto();
     });
   }
 

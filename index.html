@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#08080a">
   <meta name="color-scheme" content="dark">
-  <title>LOVECUT — АНДРЕЙ С. — RAW STREET CUTS</title>
+  <title>LOVECUT • АНДРЕЙ С. • ИРКУТСК, ЛИТВИНОВА 18</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
-  <link rel="stylesheet" href="css/main.css?v=6">
-  <link rel="stylesheet" href="css/animations.css?v=6">
+  <link rel="stylesheet" href="css/main.css?v=7">
+  <link rel="stylesheet" href="css/animations.css?v=7">
 </head>
 <body>
   <!-- Dual Magnetic Cursor Element -->
@@ -38,13 +38,13 @@
   </header>
 
   <main>
-    <!-- Monumental Edge-to-Edge Hero Section -->
+    <!-- Monumental Hero Section -->
     <section class="hero-section">
       <div class="hero-center-monolith">
-        <div class="hero-tag">АНДРЕЙ С. • ИРКУТСК, ЛИТВИНОВА 18 • INDEPENDENT ATELIER</div>
+        <div class="hero-tag">АНДРЕЙ С. • ИРКУТСК, ЛИТВИНОВА 18 • НЕЗАВИСИМЫЙ БАРБЕР</div>
         <h1 class="hero-title">LOVECUT</h1>
         <p class="hero-subtitle">
-          Подстрижём как ишака, идеальная работа, время строго по часам. Чтобы чекнуть работы — смотрите в интерактивной 3D-линзе или бронируйте свободные слоты.
+          Подстрижём как ишака, идеальная работа, время строго по часам. Чтобы оценить работы мастера — перемещайте 3D-стену или переходите к бронированию слотов.
         </p>
         <div class="hero-actions">
           <a href="#wall-section" class="btn-primary" data-cursor="magnet">
@@ -59,7 +59,7 @@
       </div>
     </section>
 
-    <!-- Kinetic Marquee Ribbon -->
+    <!-- Kinetic Marquee Ribbon (Zero slashes) -->
     <div class="ticker-wrap" aria-hidden="true">
       <div class="ticker-move">
         <span class="ticker-item">ВЫБИРАЕМ ВРЕМЯ ТОЛЬКО <strong>:00</strong></span>
@@ -93,7 +93,7 @@
           <h2 class="section-title">РАБОТЫ</h2>
         </div>
         <p class="section-desc">
-          Бесконечная стена реальных работ мастера. Перемещайте холст мышью или пальцем. Кликайте на любую фотографию, чтобы приблизить.
+          Бесконечная 3D-стена реальных работ мастера. Перемещайте холст мышью или пальцем. Нажмите на любую стрижку, чтобы приблизить детали или выбрать её для записи.
         </p>
       </div>
 
@@ -112,7 +112,7 @@
     <section class="manifest-section">
       <div class="manifest-editorial-grid">
         <div class="manifest-main-col">
-          <div class="duct-tape-badge">INDEPENDENT STREET ATELIER</div>
+          <div class="duct-tape-badge">АНДРЕЙ С. • ЛИТВИНОВА 18</div>
           <div class="section-label">02. ПРАВИЛА</div>
           <h2 class="editorial-headline">ПОДСТРИЖЁМ УЖАСНО ЗА ВАШИ ДЕНЬГИ.</h2>
           <p class="editorial-sub">
@@ -126,7 +126,7 @@
             <div>
               <h3 class="rule-entry-title">ВЫБИРАЕМ ВРЕМЯ ТОЛЬКО :00</h3>
               <p class="rule-entry-text">
-                Запись ведется строго на начало часа: 13:00, 14:00, 15:00... Никаких лишних минут не добавляем.
+                Запись ведется строго на начало часа: 12:00, 13:00, 14:00, 15:00... Никаких лишних минут не добавляем.
               </p>
             </div>
           </div>
@@ -154,28 +154,26 @@
       </div>
     </section>
 
-    <!-- 4-Step Booking Funnel Section (Thermal Docket Style) -->
+    <!-- 4-Step Booking Section (Solid Brutalist Terminal) -->
     <section id="booking-section" class="booking-section">
       <div class="booking-container">
         
-        <div class="thermal-receipt" id="thermal-receipt-docket">
-          <!-- Top Receipt Barcode & Header -->
-          <div class="booking-slip-header">
-            <div class="slip-barcode" aria-hidden="true">||| | |||| | ||||| ||| | |||||||| |||| | ||| |||| |</div>
-            <div class="slip-tag">LOVECUT DOCKET • СТРОГО :00</div>
+        <div class="booking-terminal-card" id="booking-terminal-box">
+          
+          <div class="terminal-header">
+            <div>
+              <div class="text-xs text-dim" style="letter-spacing: 0.12em; margin-bottom: 4px;">ПРЯМАЯ ЗАПИСЬ К МАСТЕРУ</div>
+              <h2 class="section-title" style="margin-bottom: 0; font-size: 1.6rem;">ЗАПИСЬ К АНДРЕЮ</h2>
+            </div>
+            <span class="terminal-tag">ИРКУТСК • СТРОГО :00</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 20px; border-bottom: 1px solid var(--border-hairline); padding-bottom: 12px;">
-            <h2 class="section-title" style="margin-bottom: 0; font-size: 1.8rem;">ЗАПИСЬ К АНДРЕЮ</h2>
-            <span style="font-size: 0.72rem; color: var(--crimson); letter-spacing: 0.15em;">SLIP #2006-IRK</span>
-          </div>
-
-          <!-- Selected Specimen Badge -->
+          <!-- Selected Cut Badge (Triggered by 3D Wall) -->
           <div class="selected-badge-wrapper">
-            <div id="selected-specimen-badge" class="selected-badge" style="display: none;"></div>
+            <div id="selected-cut-badge" class="selected-badge" style="display: none;"></div>
           </div>
 
-          <!-- Industrial Terminal Phase Bar -->
+          <!-- Terminal Phase Bar -->
           <div class="terminal-phases" id="terminal-phases-bar">
             <div class="phase-item active" data-step="1">
               <span class="phase-num">01</span>
@@ -195,7 +193,7 @@
             </div>
           </div>
 
-          <div class="receipt-perforation" aria-hidden="true"></div>
+          <div class="terminal-divider" aria-hidden="true"></div>
 
           <!-- Step 1: Rules Agreement -->
           <div class="step-panel active" data-step="1">
@@ -231,7 +229,7 @@
             </div>
 
             <button id="btn-step-1" class="btn-primary" style="width: 100%; justify-content: center;" data-goto-step="2" data-cursor="magnet" disabled>
-              <span>ПРАВИЛА ПРИНЯЛ — ПЕРЕЙТИ К ВЫБОРУ ВРЕМЕНИ</span>
+              <span>ПРАВИЛА ПРИНЯЛ • ВЫБРАТЬ ВРЕМЯ</span>
               <span>→</span>
             </button>
           </div>
@@ -241,7 +239,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
               <h3 class="panel-title" style="margin-bottom: 0;">ШАГ 2: ВЫБОР ДАТЫ И СЛОТА</h3>
               <span style="font-size: 0.75rem; color: var(--crimson); border: 1px solid var(--border-active); padding: 3px 8px; background: rgba(255,30,39,0.08);">
-                ПРЯМАЯ ЗАПИСЬ К МАСТЕРУ • БЕЗ БОТОВ И САЛОНОВ
+                ПРЯМАЯ ЗАПИСЬ • БЕЗ БОТОВ И САЛОНОВ
               </span>
             </div>
             <p class="panel-desc">
@@ -276,7 +274,7 @@
             <div style="display: flex; gap: 12px;">
               <button class="btn-secondary" data-goto-step="1" data-cursor="magnet">← НАЗАД К ПРАВИЛАМ</button>
               <button class="btn-primary" id="btn-step-2" style="flex: 1; justify-content: center;" data-goto-step="3" data-cursor="magnet" disabled>
-                <span>ВРЕМЯ ВЫБРАНО — ПЕРЕЙТИ К ЗАЛОГУ 200 ₽</span>
+                <span>ВРЕМЯ ВЫБРАНО • ПЕРЕЙТИ К ЗАЛОГУ 200 ₽</span>
                 <span>→</span>
               </button>
             </div>
@@ -324,7 +322,7 @@
             <div style="display: flex; gap: 12px;">
               <button class="btn-secondary" data-goto-step="2" data-cursor="magnet">← НАЗАД</button>
               <button class="btn-primary" style="flex: 1; justify-content: center;" data-goto-step="4" data-cursor="magnet">
-                <span>ЗАЛОГ 200 ₽ ОПЛАЧЕН — ПРИКРЕПИТЬ ЧЕК</span>
+                <span>ЗАЛОГ 200 ₽ ОПЛАЧЕН • ПРИКРЕПИТЬ ЧЕК</span>
                 <span>→</span>
               </button>
             </div>
@@ -334,15 +332,14 @@
           <div class="step-panel" data-step="4">
             <h3 class="panel-title">ШАГ 4: ОТПРАВКА ЧЕКА МАСТЕРУ</h3>
             <p class="panel-desc">
-              После перевода сохраните чек или скриншот перевода и скиньте его напрямую в Telegram мастеру:
+              После оплаты прикрепите скриншот чека и отправьте его напрямую в Telegram мастеру:
             </p>
 
             <input type="file" id="receipt-input" accept="image/*" style="display: none;">
             <div class="receipt-dropzone" id="receipt-dropzone" data-cursor="drag" data-cursor-label="DROP">
-              <div class="laser-scanline" aria-hidden="true"></div>
               <div class="dropzone-icon">📎</div>
               <h4>ПЕРЕТАЩИТЕ СКРИНШОТ ЧЕКА ИЛИ КЛИКНИТЕ</h4>
-              <p class="text-xs text-dim" style="margin-top: 6px;">Файл зафиксируется для отправки мастеру</p>
+              <p class="text-xs text-dim" style="margin-top: 6px;">Файл сохранится для отправки мастеру</p>
             </div>
 
             <div id="receipt-preview" style="display: none;"></div>
@@ -375,6 +372,7 @@
         <button id="photo-prev-btn" class="photo-nav-pill" data-cursor="magnet">← ПРЕДЫДУЩЕЕ</button>
         <span class="photo-counter-tag"><strong id="photo-counter-num">01</strong> из 49</span>
         <button id="photo-next-btn" class="photo-nav-pill" data-cursor="magnet">СЛЕДУЮЩЕЕ →</button>
+        <button id="photo-select-btn" class="photo-select-btn" data-cursor="magnet">✂️ ВЫБРАТЬ ЭТУ СТРИЖКУ ДЛЯ ЗАПИСИ ↓</button>
       </div>
     </div>
   </dialog>
@@ -410,23 +408,23 @@
         </div>
 
         <div class="footer-col">
-          <h5>ТЕХНОЛОГИИ</h5>
+          <h5>ЛОКАЦИЯ</h5>
           <ul>
-            <li>Three.js WebGL Lens</li>
-            <li>Kinetic Motion & 3D Tilt</li>
-            <li>High-End Brutalism</li>
+            <li>Иркутск, Литвинова 18</li>
+            <li>Центр, район Пассажа</li>
+            <li>Ориентир: ТК Пассаж</li>
           </ul>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>© 2006—2026 LOVECUT • ANDREY S. ALL RIGHTS RESERVED.</div>
-      <div>LOVECUT STUDIO • RAW PRECISION • IRKUTSK</div>
+      <div>© 2006—2026 LOVECUT • АНДРЕЙ С. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
+      <div>ИРКУТСК, ЛИТВИНОВА 18 • ТОЛЬКО НАЛИЧНЫМИ 🩸</div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script type="module" src="js/main.js?v=6"></script>
+  <script type="module" src="js/main.js?v=7"></script>
 </body>
 </html>

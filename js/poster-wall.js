@@ -1,5 +1,4 @@
 import * as THREE from './vendor/three.module.js';
-import { sound } from './sound-fx.js';
 
 const basePhotos = Array.from({ length: 49 }, (_, i) => {
   const num = String(i + 1).padStart(2, '0');
@@ -335,7 +334,6 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     el.setPointerCapture?.(e.pointerId);
     el.style.cursor = 'grabbing';
     if (!reduce()) scaleTarget = baseScale() * 1.08;
-    sound.playClick();
   });
 
   el.addEventListener('pointermove', e => {
@@ -376,7 +374,6 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     if (dist < 8 && duration < 600) {
       const h = cellAt(e.clientX, e.clientY);
       if (h.onImg && onSelectPhoto) {
-        sound.playSub();
         onSelectPhoto(h.idx, CUT_PHOTOS[h.idx]);
       }
     }
@@ -459,17 +456,14 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     },
     zoomIn: () => {
       scaleTarget = Math.max(1.2, scaleTarget * 0.85);
-      sound.playClick();
     },
     zoomOut: () => {
       scaleTarget = Math.min(3.8, scaleTarget * 1.18);
-      sound.playClick();
     },
     resetPos: () => {
       offTarget.set(0.5, 0.2);
       scaleTarget = baseScale();
       vel.set(0, 0);
-      sound.playSnip();
     }
   };
 }

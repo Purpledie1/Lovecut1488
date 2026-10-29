@@ -51,13 +51,17 @@
 
 @media (max-width: 600px) {
   .rubber-stamp {
-    font-size: 0.82rem;
+    top: 8%;
+    left: 50%;
+    font-size: 0.78rem;
     letter-spacing: 0.08em;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-width: 3px;
-    max-width: 86%;
+    max-width: 85%;
     white-space: normal;
     text-align: center;
+    pointer-events: none;
+    opacity: 0.9;
   }
 }
 

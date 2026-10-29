@@ -1823,8 +1823,9 @@ dialog.photo-zoom-dialog::backdrop {
     line-height: 1.5;
   }
   .pv-stage {
-    height: 56vh;
-    min-height: 360px;
+    height: 48vh;
+    min-height: 320px;
+    max-height: 420px;
   }
   .pv-controls {
     bottom: 10px;
@@ -1920,7 +1921,7 @@ dialog.photo-zoom-dialog::backdrop {
 
   /* Footer */
   .site-footer {
-    padding: 50px 16px 36px;
+    padding: 50px 16px calc(36px + env(safe-area-inset-bottom, 0px));
   }
   .footer-inner {
     grid-template-columns: 1fr;
@@ -2118,5 +2119,19 @@ dialog.photo-zoom-dialog::backdrop {
   .step-4-footer .btn-secondary {
     width: 100%;
     justify-content: center;
+  }
+}
+
+
+/* Touch Feedback Enhancements */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:active,
+  .btn-secondary:active,
+  .time-slot-btn:active,
+  .calendar-day-btn:active,
+  .copy-pill-btn:active,
+  .ctrl-btn:active,
+  .photo-nav-pill:active {
+    transform: scale(0.97);
   }
 }

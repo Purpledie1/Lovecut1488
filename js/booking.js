@@ -1,4 +1,3 @@
-import { sound } from './sound-fx.js';
 import { triggerRazorSlice, triggerRubberStamp } from './motion.js';
 
 export function initBookingFlow() {
@@ -45,12 +44,10 @@ export function initBookingFlow() {
     if (bookingSec) {
       bookingSec.scrollIntoView({ behavior: 'smooth' });
     }
-    sound.playSnip();
   };
 
   function updateStepsUI(step) {
     currentStep = step;
-    sound.playClick();
 
     const activePanel = document.querySelector(`.step-panel[data-step="${step}"]`);
     if (activePanel) {
@@ -80,7 +77,7 @@ export function initBookingFlow() {
     if (step >= 3) {
       const docket = document.getElementById('thermal-receipt-docket');
       if (docket) {
-        const text = step === 3 ? 'ЗАЛОГ 200 ₽ // СТРОГО :00' : 'SLIP PRINTED // TELEGRAM DIRECT';
+        const text = step === 3 ? 'ЗАЛОГ 200 ₽ • СТРОГО :00' : 'ЧЕК ПРИНЯТ • В TELEGRAM';
         triggerRubberStamp(docket, text);
       }
     }
@@ -97,7 +94,6 @@ export function initBookingFlow() {
   [checkTime, checkDeposit, checkCash].forEach(cb => {
     if (cb) {
       cb.addEventListener('change', () => {
-        sound.playClick();
         validateRules();
       });
     }
@@ -147,7 +143,6 @@ export function initBookingFlow() {
         <div class="day-btn-date">${day.dayNum} ${day.monthStr}</div>
       `;
       btn.addEventListener('click', () => {
-        sound.playClick();
         document.querySelectorAll('.calendar-day-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selectedDate = day;
@@ -165,7 +160,6 @@ export function initBookingFlow() {
       btn.setAttribute('data-cursor', 'magnet');
       btn.innerText = slot;
       btn.addEventListener('click', () => {
-        sound.playClick();
         document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         selectedTimeSlot = slot;
@@ -206,7 +200,6 @@ export function initBookingFlow() {
 
   // Clipboard copy helpers
   function copyToClipboard(text, btnElement, successMsg) {
-    sound.playClick();
     navigator.clipboard.writeText(text).then(() => {
       const origText = btnElement.innerText;
       btnElement.innerText = successMsg || 'СКОПИРОВАНО!';
@@ -261,7 +254,6 @@ export function initBookingFlow() {
   }
 
   function handleReceiptFile(file) {
-    sound.playSnip();
     const reader = new FileReader();
     reader.onload = e => {
       if (receiptPreview) {
@@ -283,7 +275,6 @@ export function initBookingFlow() {
   // Open Telegram with auto-generated text
   if (tgSendBtn) {
     tgSendBtn.addEventListener('click', () => {
-      sound.playSnip();
       const styleText = selectedSpecimen ? `• Стиль: [${selectedSpecimen.id}] ${selectedSpecimen.name}` : '• Стрижка: индивидуальный выбор';
       const slotText = selectedDate && selectedTimeSlot ? `• Дата и время: ${selectedDate.fullLabel}, в ${selectedTimeSlot} (строго :00)` : '• Время: начало часа :00';
 

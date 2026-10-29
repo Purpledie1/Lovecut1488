@@ -1,7 +1,5 @@
 // LOVECUT - High-End Motion & Tactile Physics Engine
 
-import { sound } from './sound-fx.js';
-
 // 1. Magnetic Buttons with Inner Text Parallax
 export function initMagneticButtons() {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -100,29 +98,7 @@ export function init3DCardTilt() {
   });
 }
 
-// 3. Live Irkutsk Digital Clock (UTC+8)
-export function initLiveIrkutskClock() {
-  const clockEl = document.getElementById('irkutsk-live-clock');
-  if (!clockEl) return;
-
-  function update() {
-    const now = new Date();
-    // UTC + 8 hours
-    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-    const irkTime = new Date(utc + 3600000 * 8);
-
-    const hh = String(irkTime.getHours()).padStart(2, '0');
-    const mm = String(irkTime.getMinutes()).padStart(2, '0');
-    const ss = String(irkTime.getSeconds()).padStart(2, '0');
-
-    clockEl.innerText = `${hh}:${mm}:${ss}`;
-  }
-
-  update();
-  setInterval(update, 1000);
-}
-
-// 4. Razor Slice & Screen Recoil
+// 3. Razor Slice & Screen Recoil
 export function triggerRazorSlice(targetEl) {
   if (targetEl) {
     targetEl.classList.remove('is-slicing');
@@ -135,11 +111,9 @@ export function triggerRazorSlice(targetEl) {
   void document.body.offsetWidth;
   document.body.classList.add('shake-recoil');
   setTimeout(() => document.body.classList.remove('shake-recoil'), 150);
-
-  sound.playSnip();
 }
 
-// 5. Rubber Ink Stamp Slam with Sub-bass
+// 4. Rubber Ink Stamp Slam
 export function triggerRubberStamp(containerEl, stampText = 'ЗАЛОГ 200 ₽ ПРИНЯТ') {
   if (!containerEl) return;
 
@@ -154,6 +128,4 @@ export function triggerRubberStamp(containerEl, stampText = 'ЗАЛОГ 200 ₽ 
   stamp.classList.remove('slam');
   void stamp.offsetWidth;
   stamp.classList.add('slam');
-
-  sound.playSub();
 }

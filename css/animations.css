@@ -1,57 +1,14 @@
 /* LOVECUT - Clean Brutalist Kinetic Motion */
 
-/* 1. Kinetic Marquee Ticker */
-.ticker-wrap {
-  width: 100%;
-  overflow: hidden;
-  background: #000;
-  border-top: 1px solid var(--border-hairline);
-  border-bottom: 1px solid var(--border-hairline);
-  padding: 12px 0;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.ticker-move {
-  display: inline-block;
-  animation: ticker-anim 28s linear infinite;
-  will-change: transform;
-}
-
-.ticker-item {
-  display: inline-block;
-  padding: 0 24px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.ticker-item strong {
-  color: #fff;
-}
-
-.ticker-item .blood {
-  color: var(--crimson);
-}
-
-@keyframes ticker-anim {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
-
-/* 2. Pulsing Status Dot */
+/* 2. Pulsing Status Dot (No neon glow) */
 @keyframes pulse-dot {
   0%, 100% {
     transform: scale(1);
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.5);
   }
   50% {
-    transform: scale(1.25);
-    opacity: 0.7;
-    box-shadow: 0 0 8px 3px rgba(0, 230, 118, 0.4);
+    transform: scale(1.15);
+    opacity: 0.45;
   }
 }
 

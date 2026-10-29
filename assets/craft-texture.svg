@@ -1,0 +1,20 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+  <filter id="craftFilter" x="0%" y="0%" width="100%" height="100%">
+    <!-- Base pulp texture -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="5" result="noise" seed="42"/>
+    <feColorMatrix type="matrix" values="
+      0.3 0.2 0 0 0.72
+      0.2 0.3 0 0 0.58
+      0.1 0.1 0.1 0 0.42
+      0 0 0 1 0" in="noise" result="coloredNoise"/>
+    <feDiffuseLighting in="noise" lighting-color="#eedcbe" surfaceScale="2" result="light">
+      <feDistantLight azimuth="55" elevation="60"/>
+    </feDiffuseLighting>
+    <feBlend mode="multiply" in="coloredNoise" in2="light" result="paper"/>
+    <!-- Fine grain -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="fineNoise" seed="99"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" in="fineNoise" result="fineGrain"/>
+    <feComposite operator="over" in="fineGrain" in2="paper"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#craftFilter)"/>
+</svg>

@@ -49,6 +49,18 @@
   white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+  .rubber-stamp {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-width: 3px;
+    max-width: 86%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 .rubber-stamp.slam {
   animation: stampSlamAnim 0.35s cubic-bezier(0.2, 1.6, 0.4, 0.9) forwards;
 }

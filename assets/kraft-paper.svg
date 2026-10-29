@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+  <defs>
+    <!-- Paper fibers & pulp -->
+    <filter id="kraftFiber" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.07" numOctaves="5" result="fibers" seed="55"/>
+      <feTurbulence type="turbulence" baseFrequency="0.8" numOctaves="3" result="speckles" seed="12"/>
+      <feColorMatrix in="speckles" type="matrix" values="
+        0 0 0 0 0.15
+        0 0 0 0 0.12
+        0 0 0 0 0.08
+        0 0 0 0.18 0" result="darkSpeckles"/>
+      <feDiffuseLighting in="fibers" lighting-color="#eddac2" surfaceScale="2.2" result="roughness">
+        <feDistantLight azimuth="45" elevation="55"/>
+      </feDiffuseLighting>
+      <feBlend in="roughness" in2="darkSpeckles" mode="multiply" result="blended"/>
+      <!-- Subtle paper wrinkle creases -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="4" result="creases" seed="88"/>
+      <feDiffuseLighting in="creases" lighting-color="#ffffff" surfaceScale="3" result="creaseLight">
+        <feDistantLight azimuth="60" elevation="40"/>
+      </feDiffuseLighting>
+      <feBlend in="blended" in2="creaseLight" mode="multiply"/>
+    </filter>
+  </defs>
+  <!-- Base Kraft Warm Cardboard Hue -->
+  <rect width="100%" height="100%" fill="#ba9c74"/>
+  <rect width="100%" height="100%" filter="url(#kraftFiber)" opacity="0.95"/>
+</svg>

@@ -358,7 +358,7 @@ export function initBookingFlow() {
           <div class="receipt-success-badge">
             <img src="${e.target.result}" alt="Чек" class="receipt-thumbnail" />
             <div>
-              <p class="font-bold text-green">[OK] СКРИНШОТ ЧЕКА ЗАГРУЖЕН</p>
+              <p class="font-bold text-crimson">[OK] СКРИНШОТ ЧЕКА ЗАГРУЖЕН</p>
               <p class="text-xs text-dim">${file.name} (${Math.round(file.size / 1024)} KB)</p>
             </div>
             <button type="button" id="btn-clear-receipt" class="btn-clear-file">УДАЛИТЬ</button>

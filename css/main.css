@@ -1084,8 +1084,8 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .phase-item.completed {
-  border-color: #00e676;
-  color: #00e676;
+  border-color: var(--crimson);
+  color: var(--crimson);
 }
 
 .phase-item.accessible {
@@ -1263,9 +1263,9 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .rules-status-tag.valid {
-  color: #00e676;
-  border-color: #00e676;
-  background: rgba(0, 230, 118, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .slot-note {
@@ -1321,7 +1321,7 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .text-green {
-  color: #00e676;
+  color: var(--crimson);
 }
 
 .btn-clear-file {
@@ -1485,9 +1485,11 @@ dialog.photo-zoom-dialog::backdrop {
 }
 
 .copy-pill-btn.copied {
-  background: #00e676;
-  border-color: #00e676;
-  color: #000;
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+  font-weight: 800;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 /* Receipt Dropzone */
@@ -1523,8 +1525,8 @@ dialog.photo-zoom-dialog::backdrop {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: rgba(0, 230, 118, 0.1);
-  border: 1px solid #00e676;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 12px;
   text-align: left;
   margin-bottom: 20px;

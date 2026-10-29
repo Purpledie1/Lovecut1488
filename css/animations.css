@@ -49,22 +49,6 @@
   white-space: nowrap;
 }
 
-@media (max-width: 600px) {
-  .rubber-stamp {
-    top: 8%;
-    left: 50%;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    padding: 5px 10px;
-    border-width: 3px;
-    max-width: 85%;
-    white-space: normal;
-    text-align: center;
-    pointer-events: none;
-    opacity: 0.9;
-  }
-}
-
 .rubber-stamp.slam {
   animation: stampSlamAnim 0.35s cubic-bezier(0.2, 1.6, 0.4, 0.9) forwards;
 }
@@ -81,6 +65,46 @@
   100% {
     opacity: 0.94;
     transform: translate(-50%, -50%) scale(1) rotate(-8deg);
+  }
+}
+
+/* Mobile Upper Right Corner Stamp */
+@media (max-width: 600px) {
+  .step-panel {
+    position: relative;
+  }
+  .panel-title {
+    padding-right: 120px;
+    line-height: 1.15;
+  }
+  .rubber-stamp {
+    top: -4px !important;
+    right: 0px !important;
+    left: auto !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.05em !important;
+    padding: 3px 6px !important;
+    border-width: 2px !important;
+    max-width: 135px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    pointer-events: none !important;
+    transform-origin: top right !important;
+    line-height: 1.25 !important;
+  }
+  .rubber-stamp.slam {
+    animation: stampSlamCorner 0.35s cubic-bezier(0.2, 1.6, 0.4, 0.9) forwards !important;
+  }
+}
+
+@keyframes stampSlamCorner {
+  0% {
+    opacity: 0;
+    transform: scale(2) rotate(14deg);
+  }
+  100% {
+    opacity: 0.92;
+    transform: scale(1) rotate(6deg);
   }
 }
 

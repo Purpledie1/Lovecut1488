@@ -1,7 +1,7 @@
-import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=15';
-import { initBookingFlow } from './booking.js?v=15';
-import { MagneticCursor } from './cursor.js?v=15';
-import { initMagneticButtons, init3DCardTilt } from './motion.js?v=15';
+import { initPosterWall, CUT_PHOTOS } from './poster-wall.js?v=16';
+import { initBookingFlow } from './booking.js?v=16';
+import { MagneticCursor } from './cursor.js?v=16';
+import { initMagneticButtons, init3DCardTilt } from './motion.js?v=16';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize High-End Custom Magnetic Cursor & Spotlight

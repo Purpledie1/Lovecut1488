@@ -384,13 +384,11 @@ export function initBookingFlow() {
   // Open Telegram with auto-generated text
   if (tgSendBtn) {
     tgSendBtn.addEventListener('click', () => {
-      const cutText = selectedCut ? (selectedCut.id ? `• Выбранная стрижка: Работа #${selectedCut.id}` : `• Выбранная стрижка: ${selectedCut}`) : '• Стрижка: выбор на месте';
       const slotText = selectedDate && selectedTimeSlot ? `• Дата и время: ${selectedDate.fullLabel}, в ${selectedTimeSlot} (строго :00)` : '• Время: начало часа :00';
 
       const msg = encodeURIComponent(
         `Привет, Андрей! Записываюсь через сайт LOVECUT.\n` +
         `${slotText}\n` +
-        `${cutText}\n` +
         `• Залог 200 ₽ на Т-Банк перевел.\n` +
         `• Остаток подготовлю наличными.\n\n` +
         `Прикрепляю скриншот чека:`

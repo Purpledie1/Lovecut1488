@@ -330,10 +330,12 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   // Pointer & Drag handling
   el.addEventListener('pointerdown', e => {
+    const now = performance.now();
     drag = {
       x: e.clientX,
       y: e.clientY,
-      t: performance.now(),
+      t: now,
+      startTime: now,
       startX: e.clientX,
       startY: e.clientY,
       pointerType: e.pointerType
@@ -355,14 +357,7 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
       offTarget.x -= dx;
       offTarget.y -= dy;
-      off.x = offTarget.x;
-      off.y = offTarget.y;
-
-      const instVx = -dx / dt * 16;
-      const instVy = -dy / dt * 16;
-      vel.x = vel.x * 0.4 + instVx * 0.6;
-      vel.y = vel.y * 0.4 + instVy * 0.6;
-
+      vel.set(-dx / dt * 16, -dy / dt * 16);
       drag.x = e.clientX;
       drag.y = e.clientY;
       drag.t = now;
@@ -383,15 +378,21 @@ export function initPosterWall(stageEl, onSelectPhoto) {
 
   const onPointerUp = e => {
     if (!drag) return;
-    const dist = Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY);
-    const duration = performance.now() - drag.t;
+    const now = performance.now();
+    const totalDist = Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY);
+    const timeSinceLastMove = now - drag.t;
 
     // Clean Tap detected -> Open pure photo zoom!
-    if (dist < 10 && duration < 500) {
+    if (totalDist < 10 && (now - drag.startTime) < 500) {
       const h = cellAt(e.clientX, e.clientY);
       if (h.onImg && onSelectPhoto) {
         onSelectPhoto(h.idx, CUT_PHOTOS[h.idx]);
       }
+    }
+
+    // If mouse was stationary before releasing, damp velocity smoothly
+    if (timeSinceLastMove > 65) {
+      vel.set(0, 0);
     }
 
     drag = null;
@@ -452,8 +453,8 @@ export function initPosterWall(stageEl, onSelectPhoto) {
     if (!drag) {
       offTarget.x += vel.x * dt;
       offTarget.y += vel.y * dt;
-      vel.x *= Math.pow(0.93, dt);
-      vel.y *= Math.pow(0.93, dt);
+      vel.x *= Math.pow(0.94, dt);
+      vel.y *= Math.pow(0.94, dt);
 
       if (Math.hypot(vel.x, vel.y) < 0.0001) {
         vel.x = Math.sin(now * 0.0004) * 0.0002;
@@ -461,10 +462,8 @@ export function initPosterWall(stageEl, onSelectPhoto) {
       }
     }
 
-    if (!drag) {
-      off.x += (offTarget.x - off.x) * 0.2 * dt;
-      off.y += (offTarget.y - off.y) * 0.2 * dt;
-    }
+    off.x += (offTarget.x - off.x) * 0.15 * dt;
+    off.y += (offTarget.y - off.y) * 0.15 * dt;
     scale += (scaleTarget - scale) * 0.12 * dt;
     uniforms.uScale.value = scale;
 
